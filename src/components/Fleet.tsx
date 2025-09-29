@@ -26,18 +26,17 @@ const Fleet = () => {
   ];
 
   return (
-    <section id="fleet" className="section-padding">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+    <section id="fleet" className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="text-center mb-8 sm:mb-12 md:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
             Наш флот
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-4">
             Современные катамараны, оснащенные всем необходимым для идеального отдыха
           </p>
         </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 max-w-6xl mx-auto">
           {catamarans.map(catamaran => (
             <CatamaranCard key={catamaran.id} catamaran={catamaran} />
           ))}
