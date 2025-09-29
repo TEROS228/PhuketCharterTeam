@@ -1,0 +1,448 @@
+import React, { useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+
+interface Route {
+  id: number;
+  name: string;
+  description: string;
+  duration: string;
+  highlights: string[];
+  price: string;
+  image: string;
+  detailedDescription: string;
+  additionalImage: string;
+  dayImages?: {
+    day: number;
+    images: string[];
+  }[];
+}
+
+const RouteDetailPage = () => {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const [showContactForm, setShowContactForm] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    guests: '',
+    preferredDate: '',
+    additionalInfo: ''
+  });
+
+  const routes: Route[] = [
+    {
+      id: 1,
+      name: '1 День. Пхукет - Острова Кхай -Райнг Яй - Нака',
+      description: 'Знаменитые острова с кристально чистой водой и белоснежными пляжами',
+      duration: 'с 9:00 до 17:00',
+      highlights: ['Острова Кхай - "острова миллиона рыбок"', 'Жемчужная ферма на Ранг Яй', 'Кормление рыбок у берега', 'Снорклинг в лазурных водах'],
+      price: 'От 40,000',
+      image: '/images/routes/phi-phi.jpg',
+      detailedDescription: 'Острова Кхай (Khai islands) - это группа из трёх островов: Кхай Нок, Кхай Нуй и Кхай Най, известных как "острова миллиона рыбок". На всех островах лазурная вода, белоснежный песок и огромное количество тропических рыб прямо у берега. Дети могут кормить рыбок бананами или хлебом на мелководье. Остров Ранг Яй - крохотный жемчужный сосед Пхукета с километровым песчаным пляжем и уникальной теплой водой (до 35°C). Здесь находится жемчужная ферма Phuket Pearl Farm, где можно увидеть процесс выращивания жемчуга. Острова Нака Яй и Нака Ной предлагают широкие песчаные пляжи и захватывающие виды на залив Пханг Нга.',
+      additionalImage: '/images/routes/phi-phi-detail.jpg'
+    },
+    {
+      id: 2,
+      name: '1 День. Пхукет - Пханг Нга (остров Хонг - остров Дж. Бонда)',
+      description: 'Уникальные известняковые скалы и мангровые леса',
+      duration: 'с 9:00 до 17:00',
+      highlights: ['Остров Джеймса Бонда', 'Знаменитая скала Ко Тапу', 'Плавучая деревня Ко-Панъи', 'Каякинг в морских пещерах'],
+      price: 'От 40,000',
+      image: '/images/routes/phang-nga.jpg',
+      detailedDescription: 'Остров Джеймса Бонда в Тайланде стал знаменитым после съемок фильма "Человек с золотым пистолетом" в 1974 году. Остров Ко Тапу выбрали декорацией за необычную форму и завораживающе красивые окрестности. Это та точка, с которой начался туристический бум Пхукета. Залив Пханг Нга изобилует живописными островами с известняковыми скалами, поднимающимися прямо из изумрудных вод. Здесь можно исследовать таинственные морские пещеры на каяках и посетить плавучую деревню Ко-Панъи, где морские цыгане живут на сваях над водой уже более 200 лет.',
+      additionalImage: '/images/routes/phang-nga-detail.jpg'
+    },
+    {
+      id: 3,
+      name: '1 День. Пхукет - Остров Хонг (Краби)',
+      description: 'Остров с пустотой внутри и скрытой лагуной',
+      duration: 'с 9:00 до 17:00',
+      highlights: ['Пляж Пелай - один из красивейших в Краби', 'Скрытая лагуна с кристальной водой', 'Каякинг к секретным местам', 'Снорклинг среди коралловых рифов'],
+      price: 'От 40,000',
+      image: '/images/routes/similan.jpg',
+      detailedDescription: 'Остров Хонг в Краби находится в 17 км от материка и является частью архипелага из 17 островов. Название переводится как "остров с пустотой внутри" - здесь есть укромная лагуна, спрятанная величественными скалами. Остров покрыт тропической зеленью и непроходимыми джунглями, где обитают огромные вараны. Пляж Пелай длиной 400 метров состоит из белоснежного песка, окружен могучими скалами и имеет прозрачное мелкое море. В северной части находится живописная лагуна с кристально чистой водой глубиной около метра. Остров входит в состав национального парка и находится под охраной.',
+      additionalImage: '/images/routes/similan-detail.jpg'
+    },
+    {
+      id: 4,
+      name: '2 Дня. Пхукет - остров Рача Яй',
+      description: 'Белоснежные пляжи и коралловые рифы как в фильме "Баунти"',
+      duration: '2 дня / 1 ночь',
+      highlights: ['Белоснежные пляжи', 'Коралловые рифы для снорклинга', 'Прозрачная морская вода', 'Тропическая растительность'],
+      price: 'От 85,000',
+      image: '/images/routes/coral.jpg',
+      detailedDescription: 'Остров Рача Яй располагается в 20 километрах к югу от Пхукета. Его длина составляет около полутора километров, а ширина – около 3 км. Остров знаменит своими белоснежными пляжами и коралловыми рифами с богатой морской флорой и фауной. Рача Яй омывает чистейшая, прозрачная морская вода, что делает его идеальным местом для снорклинга и дайвинга. Весь остров зарос тропической растительностью и разными видами пальм, поэтому вместе с белоснежными пляжами и прозрачной морской водой он чрезвычайно похож на прекрасные картины из старого фильма "Баунти" с Марлоном Брандо.',
+      additionalImage: '/images/routes/coral-detail.jpg'
+    },
+    {
+      id: 5,
+      name: '2 Дня. Пхукет - Краби (Чикен Айленд+ Ао Нанг + Ралей бич)',
+      description: 'Куриный остров с уникальной скалой и красивые пляжи Краби',
+      duration: '2 дня / 1 ночь',
+      highlights: ['Chicken Island со скалой-головой курицы', 'Пляж Ао Нанг', 'Уединенный Ралей бич', 'Живописные известняковые скалы'],
+      price: 'От 85,000',
+      image: '/images/routes/racha.jpg',
+      detailedDescription: 'Chicken Island получил свое название за необычную форму небольшой скалы, которая со стороны напоминает голову курицы. Эта скала находится на юге острова, а четкий силуэт можно увидеть только с определенного расстояния. Путешествие включает посещение пляжа Ао Нанг - главного туристического центра Краби с прекрасными пляжами и ресторанами, а также уединенного Ралей бич - скрытой жемчужины, доступной только на лодке, с потрясающими известняковыми скалами. Обратите внимание, что на Chicken Island отсутствует какая-либо инфраструктура - нет ни кафе, ни отелей.',
+      additionalImage: '/images/routes/racha-detail.jpg'
+    },
+    {
+      id: 6,
+      name: '2 Дня. Пхукет - остров Пи Пи (бухта Майя бэй фильм "Пляж "+ Пхи Пхи дон)',
+      description: 'Знаменитые острова из фильма "Пляж" с Ди Каприо',
+      duration: '2 дня / 1 ночь',
+      highlights: ['Бухта Майя Бэй из фильма "Пляж"', 'Белоснежные пляжи Пхи Пхи Дон', 'Потрясающие джунгли', 'Зажигательные вечеринки'],
+      price: 'От 85,000',
+      image: '/images/routes/krabi.jpg',
+      detailedDescription: 'Бухта Майя Бэй с белоснежным пляжем и лазурным морем, отгороженная от внешнего мира кольцом гор - это визитная карточка островов Пхи Пхи в провинции Краби. Именно здесь снималась самая райская часть фильма "Пляж" с Ди Каприо. Майя Бэй находится на Пхи Пхи Ле - необитаемом заповедном острове. Пхи-Пхи-Дон с извилистыми белоснежными пляжами и потрясающими джунглями стал островом-фаворитом в Андаманском море. Днем здесь можно плескаться в лазурном море, а с заката до рассвета отрываться на зажигательных вечеринках.',
+      additionalImage: '/images/routes/krabi-detail.jpg'
+    },
+    {
+      id: 7,
+      name: '3 Дня. Остров Ко Рок',
+      description: 'Нетронутые острова в провинции Транг для уединенного отдыха',
+      duration: '3 дня / 2 ночи',
+      highlights: ['Острова Рок и Ха', 'Нереально голубая прозрачная вода', 'Нетронутый подводный мир', 'Снорклинг без толп туристов'],
+      price: 'От 130,000',
+      image: '/images/routes/sunset.jpg',
+      detailedDescription: 'Окрестности Пхукета изобилуют красивыми островами. Острова Рок и Ха (Koh Rok, Koh Haa) в соседней провинции Транг известны немногим туристам. Дорога занимает около двух часов на катере, но это того стоит. Из-за неблизкого расположения острова не запружены туристами, на пляже масса мест для купания в спокойной обстановке. Вода нереально голубая и прозрачная. На берегу накрывают стол с разнообразными закусками и напитками, доступными бесплатно весь день. Особенность поездки - снорклинг в местах без большого количества лодок, где можно посмотреть на нетронутый подводный мир Андаманского моря в окружении необычных скал.',
+      additionalImage: '/images/routes/sunset-detail.jpg'
+    },
+    {
+      id: 8,
+      name: '3 Дня. Симиланские острова',
+      description: 'Национальный парк и одно из 10 лучших мест для дайвинга на Земле',
+      duration: '3 дня / 2 ночи',
+      highlights: ['Национальный парк Таиланда', 'Топ-10 мест для дайвинга в мире', 'Плавание с черепахами', 'Встреча с китовой акулой'],
+      price: 'От 130,000',
+      image: '/images/routes/ko-lan.jpg',
+      detailedDescription: 'Симиланские острова являются национальным парком Таиланда и входят в десятку лучших мест на земле для дайвинга и отдыха. Острова находятся в 100 км на северо-запад от Пхукета. Богатейший подводный мир завораживает не только дайверов, давно облюбовавших эти места, но и простых туристов - любителей позагорать и понырять с маской. Здесь можно увидеть всё разнообразие тропического подводного мира и возможно даже поплавать с черепахой. Дайверы со всего мира приезжают сюда с надеждой поплавать с китовой акулой - самой большой рыбой на земле, но абсолютно безопасной.',
+      additionalImage: '/images/routes/ko-lan-detail.jpg'
+    },
+    {
+      id: 9,
+      name: '3 Дня. Остров Ланта',
+      description: 'Четвертый по величине остров Таиланда для спокойного отдыха',
+      duration: '3 дня / 2 ночи',
+      highlights: ['Архипелаг из 52 островов', 'Живописные закаты на западном побережье', 'Атмосфера умиротворения', 'Густые тропические леса'],
+      price: 'От 130,000',
+      image: '/images/routes/ko-he.jpg',
+      detailedDescription: 'Ко Ланта входит в четверку самых крупных островов Таиланда, уступая по габаритам Пхукету, Самуи и Ко Чангу. Относится к провинции Краби и омывается водами Андаманского моря. Архипелаг Ланта состоит из 52 различных по размерам островов. Большая часть холмистой территории покрыта густыми тропическими лесами. Песчаные пляжи с живописными видами на морские закаты расположены вдоль всего западного побережья. Ко Ланта – остров уюта и комфортного отдыха, где царит атмосфера спокойствия и беззаботности, умиротворения и единения с девственно прекрасной природой. В кафе и ресторанах играет тихая спокойная музыка, способствующая общей атмосфере релакса.',
+      additionalImage: '/images/routes/ko-he-detail.jpg'
+    },
+    {
+      id: 10,
+      name: '7 Дней. Большое путешествие по Андаманскому морю',
+      description: 'Эксклюзивное 7-дневное путешествие по самым красивым островам Андаманского моря на комфортабельном катамаране.',
+      duration: '7 дней / 6 ночей',
+      highlights: ['Ночевки на катамаране под звездами', 'Рыбалка в открытом море', 'Дайвинг и снорклинг', 'Посещение диких островов', 'Встреча с варанами и морскими черепахами', 'Фаер-шоу на Пхи Пхи'],
+      price: '310,000',
+      image: '/images/routes/multi-day.jpg',
+      detailedDescription: `ДЕНЬ 1. О. ПХУКЕТ — О. ПАНАК — О. ХОНГ
+
+Встречаемся с капитаном в Ao Po Grand Marina на востоке острова Пхукет в 10:00. От аэропорта туда ехать около получаса. По пути стоит заехать в магазин и купить всё, что вам может понадобиться в круизе: алкоголь, любимое печенье, соки, фрукты. Старт круиза через час — после брифинга по безопасности от капитана. Пока кок будет готовить ланч, вы отдохнёте с дороги и приготовитесь к знакомству с удивительным заливом Андаманского моря — Пханг Нга.
+
+Это национальный парк с сотней известняковых островов. Ветер, солнце и время продырявили некоторые из них насквозь, создав так называемые хонгсы — полости и пустоты. Внутри одних — вода, других — болота, третьих — мангровые заросли. Предупредим сразу: здесь не будет роскошной бирюзовой воды: скалистые острова стоят на другой почве. Но нацпарк точно стоит того, чтобы его увидеть.
+
+Идём на остров Панак, знаменитый как раз хонгсами. Если пройти остров насквозь через пещеру, мы попадём в мангровый тайник. Здесь деревья держатся на высоких корнях, а вода бурая от камней и песка (вход в нацпарк 300 бат). Потом осмотрим лобстерную ферму и закончим день ужином у острова Хонг в провинции Краби.
+
+ДЕНЬ 2. О. ХОНГ — О. ЯВАСАМ — ПЛЯЖ РАЙЛИ — О. ЧИКЕН
+
+На острове Хонг никто не живёт, кроме гиббонов, птиц и ящериц. Здесь очень красиво! Лагуна в сердце острова, прекрасный пляж, пещеры и цветные рыбки… И есть шикарная смотровая, откуда скалистые острова Пханг Нга видны как на ладони.
+
+Дальше идём на остров Явасам, который окружён коралловыми рифами. Здесь множество разноцветных рыб. На сапе исследуйте побережье в поисках скрытых бухт и скал, окруженных зеленью.
+
+Полуостров Рейли, куда мы отправимся после обеда, это уже материковая часть Таиланда. Но он отрезан от остальной суши джунглями, поэтому добраться сюда можно только по воде. Будем любоваться высокими отвесными скалами, живописными тропическими лесами и морем тысячи оттенков бирюзового. А капитан покажет, как пройти к весьма нетривиальному месту — пещеру девы Прананг.
+
+На ночёвку отправимся к забавному Куриному острову (Чикен). Он метко назван за скалу в южной части, придающую ему сильное сходство с сидящей курицей. По-тайски он тоже «курица» — Кай. Выход на остров стоит 300 батт, но это необязательно. Можно поужинать с отличным видом и к вечеру ещё раз искупаться в тёплой воде.
+
+ДЕНЬ 3. О. ЧИКЕН — О. БАМБУК — О. БИДА НОК — О. ПХИ ПХИ ЛЕ — О. ПХИ ПХИ ДОН
+
+Сегодня будет насыщенный день. С утра отправимся плавать с маской у островов Бамбук и Бида Нок. Надеемся увидеть рифовых чернопёрых акул. Не волнуйтесь, они маленькие и для человека неопасны.
+
+Круиз на яхте продолжится у архипелага Пхи Пхи. Он состоит из шести островов. Вход в нацпарк 400 бат. Начнём с Пхи Пхи Ле и посмотрим с воды на знаменитую Майа Бэй, где снимался фильм «Пляж» с Леонардо ДиКаприо. Ещё осмотрим с воды Пещеру Викингов, где работают добытчики местного деликатеса — яиц стрижей-саланганов.
+
+После обеда придём к главному острову — Пхи Пхи Дон. Он известен бурной туристической и ночной жизнью. Если вы соскучились по людям, кафе и магазинам, то оказались в правильном месте. Здесь можно выпить коктейль, сделать массаж, пополнить запасы шоколадок, купить сувениров и потанцевать. Обязательно сойдём на берег вечером после ужина, чтобы посмотреть фаер-шоу.
+
+ДЕНЬ 4. О. ПХИ ПХИ ДОН — О. ХАА — О. РОК
+
+С утра до завтрака советуем пройтись до смотровой площадки острова. Подъём, честно, нелёгкий, но виды оттуда не просто сногсшибательные, они известны на весь мир. Вход стоит 30 бат, прогулка займёт около двух часов. А после отправимся в длинный переход: впереди около 3 часов чистого яхтинга.
+
+На обед остановимся у островов Хаа. Это крохотный архипелаг в южной части Таиланда. Здесь уже совсем мало народу, почти дикие места. Вода прозрачная настолько, что вы можете наблюдать за морской жизнью прямо с борта катамарана. Здесь впечатляющий подводный мир: экзотические рыбы, морские черепахи и богатые коралловые сады.
+
+Затем идём на катамаране к островам Рок. В пути проведём ещё три часа: у вас будет много времени сделать фото и видео на яхте, постоять за штурвалом. Можно позагорать на сетках, позагорать на матрасах, почитать книгу или просто поспать. Это только из дома кажется, что яхтинг и купание не отнимает силы. Вы-то уже знаете! После ужина будем наблюдать за звёздами и играть в настольные игры — кстати, захватите их с собой.
+
+ДЕНЬ 5. О. РОК
+
+Сегодня мы весь день проведём у островов Рок. Два скалистых острова — Рок Най и Рок Нок — соединены песчаной отмелью. Это часть морского национального парка Му Ко Ланта, поэтому вход — 400 бат/чел. Взамен — заповедная природа. Здесь чистая прозрачная вода, отличный сноркелинг, прекрасный пляж и эффектный водопад, падающий прямо в море.
+
+На островах уже совсем другой Таиланд: дикий, неизведанный, полный живности и удивительного спокойствия. После обеда на борту у вас будет время для прогулки по пляжу, отдыха под пальмами или даже небольшой тропы вглубь острова на смотровую площадку, откуда виден соседний островок.
+
+Ещё на острове Рок Най живут «водные драконы»: так тайцы называют больших варанов. В длину они могут быть около двух метров. Они с удовольствием выйдут познакомиться с вами, особенно если у вас будет что-нибудь вкусненькое. Мы останемся у островов Рок до конца дня.
+
+ДЕНЬ 6. О. РОК — О. РАЧА ЯЙ
+
+После завтрака отправимся в обратный путь. Нас ждёт длинный переход, во время которого мы не будем скучать: тут просто чумовая рыбалка! Устанете ловить и фотографировать улов. В этих водах обитают тунцы, махи-махи, барракуды и даже парусники. Всё, что поймаете, приготовит кок: пальчики оближете!
+
+Мы держим путь к острову Рача Яй. Остров обитаем, и не только туристами, так что можно забраться вглубь и посмотреть на местную жизнь. По пути вам попадутся буйволы и, может, вараны — тут это обычное дело.
+
+На Рача Яй находятся несколько дайверских школ. Мы тоже обязательно изучим местные споты. Будем ходить с места на место, выискивая под водой тех рыбок, которые нам ещё не попадались. Будем рыбачить, кататься на сап-борде — в общем, по полной воспользуемся всеми плюсами яхт-тура! Вечером после ужин сыграем в «крокодила» и покажем всех увиденных за день животных.
+
+ДЕНЬ 7. О. РАЧА ЯЙ — О. РАЧА НОЙ — О. ПХУКЕТ
+
+С утра под умопомрачительный кофейный запах окинем взглядом дивную природу острова. Можно и окунуться перед завтраком — уверены, погода будет отличная. Затем перейдём на остров Рача Ной.
+
+Это ещё один рай для тех, кто приехал в Таиланд за бирюзовой водой, мягким песком и волшебным подводным миром. Абсолютно безлюдное место, где вы остаётесь наедине с морем и его жителями. Будем плавать с масками и трубками, кататься на сап-борде и наслаждаться каждой минутой этого отдыха.`,
+      additionalImage: '/images/routes/multi-day-detail.jpg',
+      dayImages: [
+        { day: 1, images: ['/images/routes/day1-1.jpg', '/images/routes/day1-2.jpg', '/images/routes/day1-3.jpg'] },
+        { day: 2, images: ['/images/routes/day2-1.jpg', '/images/routes/day2-2.jpg', '/images/routes/day2-3.jpg'] },
+        { day: 3, images: ['/images/routes/day3-1.jpg', '/images/routes/day3-2.jpg', '/images/routes/day3-3.jpg'] },
+        { day: 4, images: ['/images/routes/day4-1.jpg', '/images/routes/day4-2.jpg', '/images/routes/day4-3.jpg'] },
+        { day: 5, images: ['/images/routes/day5-1.jpg', '/images/routes/day5-2.jpg', '/images/routes/day5-3.jpg'] },
+        { day: 6, images: ['/images/routes/day6-1.jpg', '/images/routes/day6-2.jpg', '/images/routes/day6-3.jpg'] },
+        { day: 7, images: ['/images/routes/day7-1.jpg', '/images/routes/day7-2.jpg', '/images/routes/day7-3.jpg'] }
+      ]
+    }
+  ];
+
+  const route = routes.find(r => r.id === parseInt(id || '0'));
+
+  if (!route) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Маршрут не найден</h1>
+          <button onClick={() => navigate('/routes')} className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Вернуться к маршрутам</button>
+        </div>
+      </div>
+    );
+  }
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const form = document.createElement('form');
+    form.action = 'https://formsubmit.co/leontrofim228@gmail.com';
+    form.method = 'POST';
+    form.style.display = 'none';
+
+    const fields = [
+      { name: '_subject', value: `Бронирование маршрута "${route.name}" от ${formData.firstName} ${formData.lastName}` },
+      { name: '_next', value: window.location.href + '?sent=true' },
+      { name: '_captcha', value: 'false' },
+      { name: 'route', value: route.name },
+      { name: 'first_name', value: formData.firstName },
+      { name: 'last_name', value: formData.lastName },
+      { name: 'email', value: formData.email },
+      { name: 'phone', value: formData.phone },
+      { name: 'guests', value: formData.guests },
+      { name: 'preferred_date', value: formData.preferredDate },
+      { name: 'additional_info', value: formData.additionalInfo },
+      { name: 'page_url', value: window.location.href }
+    ];
+
+    fields.forEach(field => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = field.name;
+      input.value = field.value;
+      form.appendChild(input);
+    });
+
+    document.body.appendChild(form);
+    form.submit();
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="pt-24 pb-6">
+        <div className="container mx-auto px-4">
+          <button onClick={() => navigate('/routes')} className="flex items-center gap-2 px-6 py-3 bg-white text-gray-700 rounded-lg border border-gray-300 hover:bg-gray-50 hover:text-blue-600 transition-all duration-200 shadow-sm">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            <span className="font-medium">Назад к маршрутам</span>
+          </button>
+        </div>
+      </div>
+
+      <div className="relative h-96 overflow-hidden">
+        <img src={route.image} alt={route.name} className="w-full h-full object-cover" onError={(e) => {
+          e.currentTarget.style.display = 'none';
+          e.currentTarget.nextElementSibling?.classList.remove('hidden');
+        }} />
+        <div className="hidden absolute inset-0 bg-gradient-to-br from-blue-100 to-cyan-200"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+        <div className="absolute bottom-8 left-0 right-0">
+          <div className="container mx-auto px-4">
+            <div className="flex items-end justify-between">
+              <div>
+                <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{route.name}</h1>
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="flex items-center gap-2 text-white">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>{route.duration}</span>
+                  </div>
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="text-4xl font-bold text-white whitespace-nowrap">{route.price} ฿</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 max-w-7xl mx-auto">
+          <div className="lg:col-span-2 space-y-8">
+            <div className="bg-white rounded-2xl shadow-lg p-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Описание маршрута</h2>
+              <p className="text-gray-700 leading-relaxed text-lg mb-6">{route.description}</p>
+              <div className="prose max-w-none">
+                <div className="text-gray-700 leading-relaxed whitespace-pre-line">{route.detailedDescription}</div>
+              </div>
+            </div>
+
+            {route.dayImages && (
+              <div className="bg-white rounded-2xl shadow-lg p-8">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Фото по дням путешествия</h2>
+                <div className="space-y-8">
+                  {route.dayImages.map((dayData) => (
+                    <div key={dayData.day} className="space-y-4">
+                      <h3 className="text-xl font-semibold text-gray-800">День {dayData.day}</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {dayData.images.map((image, index) => (
+                          <div key={index} className="aspect-square overflow-hidden rounded-lg">
+                            <img src={image} alt={`День ${dayData.day} - фото ${index + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <div className="bg-white rounded-2xl shadow-lg p-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Основные достопримечательности</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {route.highlights.map((highlight, index) => (
+                  <div key={index} className="flex items-center gap-3 p-4 bg-blue-50 rounded-lg">
+                    <svg className="w-5 h-5 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-gray-700 font-medium">{highlight}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {route.id !== 10 && (
+              <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <img src={route.additionalImage} alt={`${route.name} - дополнительное фото`} className="w-full h-80 object-cover" onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                }} />
+                <div className="hidden h-80 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                  <span className="text-gray-500">Дополнительное изображение</span>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-2xl shadow-lg p-8 sticky top-8">
+              <h3 className="text-xl font-bold text-gray-900 mb-6">Забронировать маршрут</h3>
+              <div className="space-y-4 mb-6">
+                <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                  <span className="text-gray-600">Стоимость:</span>
+                  <span className="text-2xl font-bold text-blue-600 whitespace-nowrap">{route.price} ฿</span>
+                </div>
+                <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                  <span className="text-gray-600">Продолжительность:</span>
+                  <span className="font-medium text-gray-900">{route.duration}</span>
+                </div>
+              </div>
+              <div className="space-y-3">
+                <a href="https://wa.me/66854741566" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-all duration-300 font-medium">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.785"/>
+                  </svg>
+                  Быстрое бронирование
+                </a>
+                <button onClick={() => setShowContactForm(true)} className="w-full border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white py-3 rounded-lg transition-all duration-300 font-medium">
+                  Подробная заявка
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {showContactForm && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-2xl font-bold text-gray-900">Бронирование маршрута</h3>
+                <button onClick={() => setShowContactForm(false)} className="text-gray-400 hover:text-gray-600 transition-colors">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <form onSubmit={handleFormSubmit} className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Имя *</label>
+                    <input type="text" required value={formData.firstName} onChange={(e) => setFormData({...formData, firstName: e.target.value})} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" placeholder="Ваше имя" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Фамилия *</label>
+                    <input type="text" required value={formData.lastName} onChange={(e) => setFormData({...formData, lastName: e.target.value})} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" placeholder="Ваша фамилия" />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                  <input type="email" required value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" placeholder="your@email.com" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Телефон</label>
+                  <input type="tel" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" placeholder="+66 123 456 789" />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Количество гостей</label>
+                    <input type="number" min="1" value={formData.guests} onChange={(e) => setFormData({...formData, guests: e.target.value})} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" placeholder="1" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Предпочитаемая дата</label>
+                    <input type="date" value={formData.preferredDate} onChange={(e) => setFormData({...formData, preferredDate: e.target.value})} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Дополнительная информация</label>
+                  <textarea value={formData.additionalInfo} onChange={(e) => setFormData({...formData, additionalInfo: e.target.value})} rows={4} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none" placeholder="Особые пожелания, вопросы по маршруту..." />
+                </div>
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-blue-900 mb-2">{route.name}</h4>
+                  <p className="text-sm text-blue-700 whitespace-nowrap">{route.duration} • {route.price} ฿</p>
+                </div>
+                <div className="flex gap-3 pt-4">
+                  <button type="button" onClick={() => setShowContactForm(false)} className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">Отмена</button>
+                  <button type="submit" className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg hover:shadow-lg transition-all transform hover:-translate-y-0.5">Отправить запрос</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default RouteDetailPage;
