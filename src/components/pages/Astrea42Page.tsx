@@ -256,11 +256,11 @@ const Astrea42Page = () => {
                 </div>
                 <div className="border-l-4 border-orange-500 pl-3 sm:pl-4">
                   <div className="font-semibold text-sm sm:text-base">2 дня / 1 ночь</div>
-                  <div className="text-xs sm:text-sm text-gray-600">85,000 ฿</div>
+                  <div className="text-xs sm:text-sm text-gray-600">От 85,000 ฿</div>
                 </div>
                 <div className="border-l-4 border-purple-500 pl-3 sm:pl-4">
                   <div className="font-semibold text-sm sm:text-base">3 дня / 2 ночи</div>
-                  <div className="text-xs sm:text-sm text-gray-600">130,000 ฿</div>
+                  <div className="text-xs sm:text-sm text-gray-600">От 130,000 ฿</div>
                 </div>
               </div>
             </div>

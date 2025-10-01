@@ -225,8 +225,8 @@ const Lucia40Page = () => {
               <div className="space-y-3 sm:space-y-4">
                 {[
                   { time: 'С 9:00 до 17:00', price: 'От 40,000 ฿', color: 'blue' },
-                  { time: '2 дня / 1 ночь', price: '85,000 ฿', color: 'orange' },
-                  { time: '3 дня / 2 ночи', price: '130,000 ฿', color: 'purple' }
+                  { time: '2 дня / 1 ночь', price: 'От 85,000 ฿', color: 'orange' },
+                  { time: '3 дня / 2 ночи', price: 'От 130,000 ฿', color: 'purple' }
                 ].map((pkg, idx) => (
                   <div key={idx} className={`border-l-4 border-${pkg.color}-500 pl-3 sm:pl-4`}>
                     <div className="font-semibold text-sm sm:text-base">{pkg.time}</div>
