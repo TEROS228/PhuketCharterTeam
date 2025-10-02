@@ -287,10 +287,10 @@ const Astrea42Page = () => {
 
       {/* Модальное окно с календарем */}
       {showContactForm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 overflow-y-auto">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full my-8">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-4 sm:p-6">
-              <div className="flex items-center justify-between mb-4 sm:mb-6">
+              <div className="flex items-center justify-between mb-4 sm:mb-6 sticky top-0 bg-white pb-4 border-b z-10">
                 <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Запрос на бронирование</h3>
                 <button
                   onClick={() => setShowContactForm(false)}
@@ -307,8 +307,8 @@ const Astrea42Page = () => {
                 <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-3">Проверьте доступность дат</h4>
                 <div className="border rounded-lg overflow-hidden bg-gray-50">
                   <iframe 
-                    src="https://teamup.com/ksitee8txsgajgf5rr?view=m&showLogo=0&showSearch=0&showProfileAndInfo=0&showSidepanel=1&disableSidepanel=1&showTitle=0&showViewSelector=1&showMenu=1&showAgendaHeader=1&showAgendaDetails=0&showYearViewHeader=1"
-                    style={{ width: '100%', height: '400px', border: 0 }}
+                    src="https://teamup.com/ksitee8txsgajgf5rr?view=m&showLogo=0&showSearch=0&showProfileAndInfo=0&showSidepanel=0&disableSidepanel=1&showTitle=0&showViewSelector=1&showMenu=1&showAgendaHeader=1&showAgendaDetails=0&showYearViewHeader=1"
+                    className="w-full h-[350px] sm:h-[400px]"
                     frameBorder="0"
                     title="Календарь доступности"
                   />
