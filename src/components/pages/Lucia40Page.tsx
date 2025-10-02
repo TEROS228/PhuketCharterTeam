@@ -255,18 +255,35 @@ const Lucia40Page = () => {
         </div>
       </div>
 
-      {/* Modal - same as Astrea42 */}
+      {/* Modal with calendar */}
       {showContactForm && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-4 sm:p-6">
-              <div className="flex items-center justify-between mb-4 sm:mb-6">
+              <div className="flex items-center justify-between mb-4 sm:mb-6 sticky top-0 bg-white pb-4 border-b z-10">
                 <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Запрос на бронирование</h3>
                 <button onClick={() => setShowContactForm(false)} className="text-gray-400 hover:text-gray-600 transition-colors p-1">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
+              </div>
+
+              {/* Календарь Teamup */}
+              <div className="mb-6">
+                <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-3">Проверьте доступность дат</h4>
+                <div className="border rounded-lg overflow-hidden bg-gray-50">
+                  <iframe 
+                    src="https://teamup.com/ksitee8txsgajgf5rr?view=m&showLogo=0&showSearch=0&showProfileAndInfo=0&showSidepanel=0&disableSidepanel=1&showTitle=0&showViewSelector=1&showMenu=1&showAgendaHeader=1&showAgendaDetails=0&showYearViewHeader=1"
+                    className="w-full h-[350px] sm:h-[400px]"
+                    frameBorder="0"
+                    title="Календарь доступности"
+                  />
+                </div>
+                <p className="text-xs sm:text-sm text-gray-600 mt-2">
+                  <span className="inline-block w-3 h-3 bg-gray-400 rounded mr-1"></span>
+                  Занятые даты отмечены в календаре
+                </p>
               </div>
 
               <form onSubmit={handleFormSubmit} className="space-y-3 sm:space-y-4">
@@ -293,7 +310,7 @@ const Lucia40Page = () => {
 
                 <div>
                   <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Дополнительная информация</label>
-                  <textarea value={formData.additionalInfo} onChange={(e) => setFormData({...formData, additionalInfo: e.target.value})} rows={3} className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 resize-none text-sm sm:text-base" placeholder="Даты, количество гостей..." />
+                  <textarea value={formData.additionalInfo} onChange={(e) => setFormData({...formData, additionalInfo: e.target.value})} rows={3} className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 resize-none text-sm sm:text-base" placeholder="Даты, количество гостей, пожелания..." />
                 </div>
 
                 <div className="bg-blue-50 p-3 sm:p-4 rounded-lg">
