@@ -159,7 +159,7 @@ const Lucia40Page = () => {
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-4">Lucia 40</h1>
               <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-4 sm:mb-6">
-                Элегантный катамаран для незабываемых морских приключений
+                Один из лучших дизайнеров катамаранов Оливье Ракупо спроектировал катамаран с элегантными и современными линиями, модернизировал рулевое управление, а также оптимизировал объемы жилых помещений. Не удивительно что удобная и маневренная Lucia 40 стала самым популярным 40-футовым катамараном на рынке. Этот катамаран — это настоящая революция в его классе.
               </p>
               <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
                 <span className="text-2xl sm:text-3xl font-bold text-blue-600">От 40,000 ฿</span>

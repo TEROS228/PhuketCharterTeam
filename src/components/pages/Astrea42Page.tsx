@@ -285,10 +285,10 @@ const Astrea42Page = () => {
         </div>
       </div>
 
-      {/* Модальное окно - используем ту же оптимизацию что в CatamaranCard */}
+      {/* Модальное окно с календарем */}
       {showContactForm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full my-8">
             <div className="p-4 sm:p-6">
               <div className="flex items-center justify-between mb-4 sm:mb-6">
                 <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Запрос на бронирование</h3>
@@ -300,6 +300,23 @@ const Astrea42Page = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
+              </div>
+
+              {/* Календарь Teamup */}
+              <div className="mb-6">
+                <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-3">Проверьте доступность дат</h4>
+                <div className="border rounded-lg overflow-hidden bg-gray-50">
+                  <iframe 
+                    src="https://teamup.com/ksitee8txsgajgf5rr?view=m&showLogo=0&showSearch=0&showProfileAndInfo=0&showSidepanel=1&disableSidepanel=1&showTitle=0&showViewSelector=1&showMenu=1&showAgendaHeader=1&showAgendaDetails=0&showYearViewHeader=1"
+                    style={{ width: '100%', height: '400px', border: 0 }}
+                    frameBorder="0"
+                    title="Календарь доступности"
+                  />
+                </div>
+                <p className="text-xs sm:text-sm text-gray-600 mt-2">
+                  <span className="inline-block w-3 h-3 bg-gray-400 rounded mr-1"></span>
+                  Занятые даты отмечены в календаре
+                </p>
               </div>
 
               <form onSubmit={handleFormSubmit} className="space-y-3 sm:space-y-4">
@@ -358,7 +375,7 @@ const Astrea42Page = () => {
                     onChange={(e) => setFormData({...formData, additionalInfo: e.target.value})}
                     rows={3}
                     className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none text-sm sm:text-base"
-                    placeholder="Даты, количество гостей..."
+                    placeholder="Даты, количество гостей, пожелания..."
                   />
                 </div>
 
