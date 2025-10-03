@@ -7,6 +7,7 @@ import Astrea42Page from './components/pages/Astrea42Page';
 import Lucia40Page from './components/pages/Lucia40Page';
 import RoutesPage from './components/pages/RoutesPage';
 import RouteDetailPage from './components/pages/RouteDetailPage';
+import PriceCalculatorPage from './components/pages/PriceCalculatorPage';
 import { useSmoothScroll } from './hooks/useSmoothScroll';
 
 const FleetPage = () => (
@@ -50,6 +51,7 @@ function App() {
           <Route path="/fleet" element={<FleetPage />} />
           <Route path="/routes" element={<RoutesPage />} />
           <Route path="/route/:id" element={<RouteDetailPage />} />
+          <Route path="/calculator" element={<PriceCalculatorPage />} />
           <Route path="/booking" element={<BookingPage />} />
           <Route path="/catamaran/astrea-42" element={<Astrea42Page />} />
           <Route path="/catamaran/lucia-40" element={<Lucia40Page />} />

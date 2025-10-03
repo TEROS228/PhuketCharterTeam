@@ -46,7 +46,7 @@ const Footer = () => {
               <a href="#fleet" className="block text-gray-400 hover:text-white transition">Наш флот</a>
               <a href="/routes" className="block text-gray-400 hover:text-white transition">Маршруты</a>
               <a href="#food" className="block text-gray-400 hover:text-white transition">Питание</a>
-              <a href="#inclusions" className="block text-gray-400 hover:text-white transition">Что включено</a>
+              <a href="/calculator" className="block text-gray-400 hover:text-white transition">Калькулятор</a>
             </div>
           </div>
           
