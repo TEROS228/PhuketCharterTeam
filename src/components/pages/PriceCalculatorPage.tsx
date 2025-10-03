@@ -13,76 +13,39 @@ const PriceCalculatorPage = () => {
 
     const date = new Date(dateString);
     const month = date.getMonth() + 1; // 1-12
-    const day = date.getDate();
 
-    // Проверка на нерабочие месяцы (июнь-октябрь)
-    if (month >= 6 && month <= 10) {
+    // Проверка на нерабочие месяцы (июнь-сентябрь)
+    if (month >= 6 && month <= 9) {
       return null;
     }
 
-    // Цены для 1 дня
-    const prices1Day: { [key: string]: number } = {
-      'nov': 40000,      // 1 ноября - 30 ноября
-      'dec1': 45000,     // 1 декабря - 25 декабря
-      'dec2': 50000,     // 26 декабря - 31 декабря
-      'jan1': 50000,     // 1 января - 15 января
-      'jan2': 45000,     // 16 января - 31 января
-      'feb': 45000,      // 1 февраля - 29 февраля
-      'mar1': 45000,     // 1 марта
-      'mar2': 40000,     // 2 марта - 31 марта
-      'apr': 40000,      // апрель
-      'may': 40000,      // май
+    // Цены для 1 дня по месяцам
+    const prices1Day: { [key: number]: number } = {
+      1: 50000,   // Январь
+      2: 45000,   // Февраль
+      3: 45000,   // Март
+      4: 40000,   // Апрель
+      5: 40000,   // Май
+      10: 40000,  // Октябрь
+      11: 40000,  // Ноябрь
+      12: 45000,  // Декабрь
     };
 
-    // Цены для 2 дней
-    const prices2Days: { [key: string]: number } = {
-      'nov': 85000,
-      'dec1': 95000,
-      'dec2': 105000,
-      'jan1': 105000,
-      'jan2': 95000,
-      'feb': 95000,
-      'mar1': 95000,
-      'mar2': 85000,
-      'apr': 85000,
-      'may': 85000,
+    // Цены для 2 дней по месяцам
+    const prices2Days: { [key: number]: number } = {
+      1: 95000,   // Январь
+      2: 90000,   // Февраль
+      3: 90000,   // Март
+      4: 85000,   // Апрель
+      5: 85000,   // Май
+      10: 85000,  // Октябрь
+      11: 85000,  // Ноябрь
+      12: 90000,  // Декабрь
     };
 
     const priceMap = days === 1 ? prices1Day : prices2Days;
 
-    // Определяем период
-    if (month === 11) {
-      return priceMap['nov'];
-    } else if (month === 12) {
-      if (day <= 25) {
-        return priceMap['dec1'];
-      } else {
-        return priceMap['dec2'];
-      }
-    } else if (month === 1) {
-      if (day <= 15) {
-        return priceMap['jan1'];
-      } else {
-        return priceMap['jan2'];
-      }
-    } else if (month === 2) {
-      return priceMap['feb'];
-    } else if (month === 3) {
-      if (day === 1) {
-        return priceMap['mar1'];
-      } else {
-        return priceMap['mar2'];
-      }
-    } else if (month === 4) {
-      return priceMap['apr'];
-    } else if (month === 5) {
-      if (day === 1) {
-        return priceMap['may'];
-      }
-      return priceMap['may'];
-    }
-
-    return null;
+    return priceMap[month] || null;
   };
 
   const handleCalculate = () => {
@@ -103,11 +66,14 @@ const PriceCalculatorPage = () => {
   };
 
   const pricePeriods = [
-    { period: '1 ноября - 30 ноября', price1Day: '40,000 ฿', price2Days: '85,000 ฿' },
-    { period: '1 декабря - 25 декабря', price1Day: '45,000 ฿', price2Days: '95,000 ฿' },
-    { period: '26 декабря - 15 января', price1Day: '50,000 ฿', price2Days: '105,000 ฿' },
-    { period: '16 января - 1 марта', price1Day: '45,000 ฿', price2Days: '95,000 ฿' },
-    { period: '2 марта - 1 июня', price1Day: '40,000 ฿', price2Days: '85,000 ฿' },
+    { period: 'Январь', price1Day: '50,000 ฿', price2Days: '95,000 ฿' },
+    { period: 'Февраль', price1Day: '45,000 ฿', price2Days: '90,000 ฿' },
+    { period: 'Март', price1Day: '45,000 ฿', price2Days: '90,000 ฿' },
+    { period: 'Апрель', price1Day: '40,000 ฿', price2Days: '85,000 ฿' },
+    { period: 'Май', price1Day: '40,000 ฿', price2Days: '85,000 ฿' },
+    { period: 'Октябрь', price1Day: '40,000 ฿', price2Days: '85,000 ฿' },
+    { period: 'Ноябрь', price1Day: '40,000 ฿', price2Days: '85,000 ฿' },
+    { period: 'Декабрь', price1Day: '45,000 ฿', price2Days: '90,000 ฿' },
   ];
 
   return (
@@ -216,7 +182,7 @@ const PriceCalculatorPage = () => {
                       Нерабочий сезон
                     </p>
                     <p className="text-sm sm:text-base text-gray-600">
-                      Выбранная дата находится в нерабочем периоде (июнь - октябрь). Пожалуйста, выберите дату с ноября по май.
+                      Выбранная дата находится в нерабочем периоде (июнь - сентябрь). Пожалуйста, выберите дату с октября по май.
                     </p>
                   </div>
                 </div>
@@ -268,7 +234,7 @@ const PriceCalculatorPage = () => {
 
             <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
               <p className="text-xs sm:text-sm text-gray-600 text-center">
-                <span className="font-semibold text-yellow-700">Обратите внимание:</span> С июня по октябрь - нерабочий сезон
+                <span className="font-semibold text-yellow-700">Обратите внимание:</span> С июня по сентябрь - нерабочий сезон
               </p>
             </div>
           </div>
