@@ -5,6 +5,7 @@ const PriceCalculatorPage = () => {
   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState('');
   const [duration, setDuration] = useState<1 | 2>(1);
+  const [catamaran, setCatamaran] = useState<'astrea42' | 'lucia40'>('astrea42');
   const [calculatedPrice, setCalculatedPrice] = useState<number | null>(null);
   const [isOffSeason, setIsOffSeason] = useState(false);
 
@@ -107,6 +108,62 @@ const PriceCalculatorPage = () => {
           {/* Калькулятор */}
           <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 md:p-10 mb-8">
             <div className="space-y-6">
+              {/* Выбор катамарана */}
+              <div>
+                <label className="block text-sm sm:text-base font-semibold text-gray-700 mb-3">
+                  Выберите катамаран
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <button
+                    onClick={() => setCatamaran('astrea42')}
+                    className={`p-4 sm:p-6 rounded-xl border-2 transition-all duration-300 text-left ${
+                      catamaran === 'astrea42'
+                        ? 'border-blue-600 bg-blue-50 shadow-lg scale-105'
+                        : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-1 ${
+                        catamaran === 'astrea42' ? 'border-blue-600' : 'border-gray-300'
+                      }`}>
+                        {catamaran === 'astrea42' && (
+                          <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
+                        )}
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-lg text-gray-900">Astrea 42</h3>
+                        <p className="text-sm text-gray-600 mt-1">42 фута • До 10 гостей</p>
+                        <p className="text-xs text-gray-500 mt-2">4 каюты • 4 санузла</p>
+                      </div>
+                    </div>
+                  </button>
+
+                  <button
+                    onClick={() => setCatamaran('lucia40')}
+                    className={`p-4 sm:p-6 rounded-xl border-2 transition-all duration-300 text-left ${
+                      catamaran === 'lucia40'
+                        ? 'border-blue-600 bg-blue-50 shadow-lg scale-105'
+                        : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-1 ${
+                        catamaran === 'lucia40' ? 'border-blue-600' : 'border-gray-300'
+                      }`}>
+                        {catamaran === 'lucia40' && (
+                          <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
+                        )}
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-lg text-gray-900">Lucia 40</h3>
+                        <p className="text-sm text-gray-600 mt-1">40 футов • До 10 гостей</p>
+                        <p className="text-xs text-gray-500 mt-2">4 каюты • 2 санузла</p>
+                      </div>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
               {/* Выбор продолжительности */}
               <div>
                 <label className="block text-sm sm:text-base font-semibold text-gray-700 mb-3">
@@ -161,7 +218,10 @@ const PriceCalculatorPage = () => {
               {calculatedPrice !== null && (
                 <div className="mt-6 p-6 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl">
                   <div className="text-center">
-                    <p className="text-sm sm:text-base text-gray-600 mb-2">Стоимость аренды</p>
+                    <p className="text-sm sm:text-base text-gray-600 mb-1">Стоимость аренды</p>
+                    <p className="text-xs sm:text-sm text-blue-600 font-semibold mb-2">
+                      {catamaran === 'astrea42' ? 'Astrea 42' : 'Lucia 40'}
+                    </p>
                     <p className="text-4xl sm:text-5xl font-bold text-green-600">
                       {calculatedPrice.toLocaleString()} ฿
                     </p>
