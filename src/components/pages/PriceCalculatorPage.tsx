@@ -10,6 +10,12 @@ const PriceCalculatorPage = () => {
   const [isOffSeason, setIsOffSeason] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
+  // Новые параметры
+  const [numberOfPeople, setNumberOfPeople] = useState<number>(1);
+  const [needFood, setNeedFood] = useState<boolean>(false);
+  const [needChef, setNeedChef] = useState<boolean>(false);
+  const [groceriesAmount, setGroceriesAmount] = useState<string>('');
+
 
   const getDailyPriceForDate = (date: Date): number | null => {
     const month = date.getMonth() + 1; // 1-12
@@ -142,13 +148,34 @@ const PriceCalculatorPage = () => {
       return;
     }
 
-    const price = calculateTotalPrice(startDate, endDate);
+    let basePrice = calculateTotalPrice(startDate, endDate);
 
-    if (price === null) {
+    if (basePrice === null) {
       setIsOffSeason(true);
-    } else {
-      setCalculatedPrice(price);
+      return;
     }
+
+    // Добавляем стоимость питания
+    let foodCost = 0;
+    if (needFood) {
+      foodCost = 500 * numberOfPeople * numberOfDays;
+      basePrice += foodCost;
+    }
+
+    // Добавляем стоимость повара (только для 2, 3, 7 дней)
+    let chefCost = 0;
+    if (needChef && (numberOfDays === 2 || numberOfDays === 3 || numberOfDays === 7)) {
+      chefCost = 4000 * numberOfDays;
+      basePrice += chefCost;
+    }
+
+    // Добавляем стоимость продуктов по чеку
+    const groceriesCost = groceriesAmount ? parseFloat(groceriesAmount) : 0;
+    if (groceriesCost > 0) {
+      basePrice += groceriesCost;
+    }
+
+    setCalculatedPrice(basePrice);
   };
 
   const pricePeriods = [
@@ -272,6 +299,99 @@ const PriceCalculatorPage = () => {
                 </div>
               </div>
 
+              {/* Количество человек */}
+              <div>
+                <label className="block text-sm sm:text-base font-semibold text-gray-700 mb-3">
+                  Количество гостей
+                </label>
+                <input
+                  type="number"
+                  min="1"
+                  max="10"
+                  value={numberOfPeople}
+                  onChange={(e) => setNumberOfPeople(Math.min(10, Math.max(1, parseInt(e.target.value) || 1)))}
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                />
+                <p className="text-xs text-gray-500 mt-2">От 1 до 10 гостей</p>
+              </div>
+
+              {/* Питание */}
+              <div className="border-2 border-gray-200 rounded-xl p-4 sm:p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex-1">
+                    <h3 className="text-sm sm:text-base font-semibold text-gray-700">Нужно питание?</h3>
+                    <p className="text-xs sm:text-sm text-gray-500 mt-1">500 ฿ на человека в день</p>
+                  </div>
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={needFood}
+                      onChange={(e) => setNeedFood(e.target.checked)}
+                      className="sr-only peer"
+                    />
+                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                  </label>
+                </div>
+                <button
+                  onClick={() => navigate('/food-menu')}
+                  className="w-full px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg font-medium text-sm hover:shadow-lg transition-all duration-200"
+                >
+                  📋 Посмотреть меню на 1 день
+                </button>
+              </div>
+
+              {/* Повар и продукты (только для 2, 3, 7 дней) */}
+              {startDate && endDate && (() => {
+                const start = new Date(startDate);
+                const end = new Date(endDate);
+                const diffTime = end.getTime() - start.getTime();
+                const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+                if (days === 2 || days === 3 || days === 7) {
+                  return (
+                    <div className="border-2 border-purple-200 rounded-xl p-4 sm:p-6 bg-purple-50">
+                      <h3 className="text-sm sm:text-base font-semibold text-gray-700 mb-4">
+                        Дополнительные услуги для {days}-дневного тура
+                      </h3>
+
+                      {/* Повар */}
+                      <div className="flex items-center justify-between mb-4 pb-4 border-b border-purple-200">
+                        <div className="flex-1">
+                          <h4 className="text-sm font-semibold text-gray-700">Персональный повар</h4>
+                          <p className="text-xs text-gray-500 mt-1">4,000 ฿ за день × {days} {days === 1 ? 'день' : days <= 4 ? 'дня' : 'дней'} = {4000 * days} ฿</p>
+                        </div>
+                        <label className="relative inline-flex items-center cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={needChef}
+                            onChange={(e) => setNeedChef(e.target.checked)}
+                            className="sr-only peer"
+                          />
+                          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"></div>
+                        </label>
+                      </div>
+
+                      {/* Продукты по чеку */}
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                          Продукты по чеку (по вашему запросу)
+                        </label>
+                        <input
+                          type="number"
+                          min="0"
+                          value={groceriesAmount}
+                          onChange={(e) => setGroceriesAmount(e.target.value)}
+                          placeholder="Введите сумму в батах"
+                          className="w-full px-4 py-3 border-2 border-purple-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all text-base"
+                        />
+                        <p className="text-xs text-gray-500 mt-2">Мы купим продукты по вашему списку, вы оплатите по чеку</p>
+                      </div>
+                    </div>
+                  );
+                }
+                return null;
+              })()}
+
               {/* Кнопка расчета */}
               <button
                 onClick={handleCalculate}
@@ -295,22 +415,77 @@ const PriceCalculatorPage = () => {
                 const numberOfDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
                 const numberOfNights = numberOfDays - 1;
 
+                // Рассчитываем компоненты цены для детализации
+                const basePrice = calculateTotalPrice(startDate, endDate) || 0;
+                const foodCost = needFood ? 500 * numberOfPeople * numberOfDays : 0;
+                const chefCost = needChef ? 4000 * numberOfDays : 0;
+                const groceriesCost = groceriesAmount ? parseFloat(groceriesAmount) : 0;
+
                 return (
-                  <div className="mt-6 p-6 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl">
-                    <div className="text-center">
-                      <p className="text-sm sm:text-base text-gray-600 mb-1">Стоимость аренды</p>
-                      <p className="text-xs sm:text-sm text-blue-600 font-semibold mb-2">
-                        {catamaran === 'astrea42' ? 'Astrea 42' : 'Lucia 40'}
-                      </p>
-                      <p className="text-4xl sm:text-5xl font-bold text-green-600">
-                        {calculatedPrice.toLocaleString()} ฿
-                      </p>
-                      <p className="text-xs sm:text-sm text-gray-500 mt-2">
-                        {numberOfDays} {numberOfDays === 1 ? 'день' : numberOfDays <= 4 ? 'дня' : 'дней'} / {numberOfNights} {numberOfNights === 1 ? 'ночь' : numberOfNights <= 4 ? 'ночи' : 'ночей'}
-                      </p>
-                      <p className="text-xs sm:text-sm text-gray-500">
-                        с {new Date(startDate).toLocaleDateString('ru-RU')} по {new Date(endDate).toLocaleDateString('ru-RU')}
-                      </p>
+                  <div className="mt-6 space-y-4">
+                    {/* Детализация стоимости */}
+                    <div className="p-6 bg-white border-2 border-gray-200 rounded-xl">
+                      <h3 className="text-lg font-bold text-gray-900 mb-4 text-center">Детализация стоимости</h3>
+
+                      <div className="space-y-3">
+                        {/* Базовая стоимость */}
+                        <div className="flex justify-between items-center pb-3 border-b border-gray-200">
+                          <div>
+                            <p className="text-sm font-semibold text-gray-700">Аренда катамарана</p>
+                            <p className="text-xs text-gray-500">{catamaran === 'astrea42' ? 'Astrea 42' : 'Lucia 40'} • {numberOfDays} {numberOfDays === 1 ? 'день' : numberOfDays <= 4 ? 'дня' : 'дней'}</p>
+                          </div>
+                          <p className="text-base font-bold text-gray-900">{basePrice.toLocaleString()} ฿</p>
+                        </div>
+
+                        {/* Питание */}
+                        {needFood && (
+                          <div className="flex justify-between items-center pb-3 border-b border-gray-200">
+                            <div>
+                              <p className="text-sm font-semibold text-gray-700">Питание</p>
+                              <p className="text-xs text-gray-500">{numberOfPeople} {numberOfPeople === 1 ? 'человек' : numberOfPeople <= 4 ? 'человека' : 'человек'} × {numberOfDays} {numberOfDays === 1 ? 'день' : numberOfDays <= 4 ? 'дня' : 'дней'} × 500 ฿</p>
+                            </div>
+                            <p className="text-base font-bold text-green-600">+{foodCost.toLocaleString()} ฿</p>
+                          </div>
+                        )}
+
+                        {/* Повар */}
+                        {needChef && (numberOfDays === 2 || numberOfDays === 3 || numberOfDays === 7) && (
+                          <div className="flex justify-between items-center pb-3 border-b border-gray-200">
+                            <div>
+                              <p className="text-sm font-semibold text-gray-700">Персональный повар</p>
+                              <p className="text-xs text-gray-500">4,000 ฿ × {numberOfDays} {numberOfDays === 1 ? 'день' : numberOfDays <= 4 ? 'дня' : 'дней'}</p>
+                            </div>
+                            <p className="text-base font-bold text-purple-600">+{chefCost.toLocaleString()} ฿</p>
+                          </div>
+                        )}
+
+                        {/* Продукты по чеку */}
+                        {groceriesCost > 0 && (
+                          <div className="flex justify-between items-center pb-3 border-b border-gray-200">
+                            <div>
+                              <p className="text-sm font-semibold text-gray-700">Продукты по чеку</p>
+                              <p className="text-xs text-gray-500">По вашему запросу</p>
+                            </div>
+                            <p className="text-base font-bold text-orange-600">+{groceriesCost.toLocaleString()} ฿</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Итоговая сумма */}
+                    <div className="p-6 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl">
+                      <div className="text-center">
+                        <p className="text-sm sm:text-base text-gray-600 mb-1">Итоговая стоимость</p>
+                        <p className="text-4xl sm:text-5xl font-bold text-green-600">
+                          {calculatedPrice.toLocaleString()} ฿
+                        </p>
+                        <p className="text-xs sm:text-sm text-gray-500 mt-2">
+                          {numberOfDays} {numberOfDays === 1 ? 'день' : numberOfDays <= 4 ? 'дня' : 'дней'} / {numberOfNights} {numberOfNights === 1 ? 'ночь' : numberOfNights <= 4 ? 'ночи' : 'ночей'} • {numberOfPeople} {numberOfPeople === 1 ? 'гость' : numberOfPeople <= 4 ? 'гостя' : 'гостей'}
+                        </p>
+                        <p className="text-xs sm:text-sm text-gray-500">
+                          с {new Date(startDate).toLocaleDateString('ru-RU')} по {new Date(endDate).toLocaleDateString('ru-RU')}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 );
