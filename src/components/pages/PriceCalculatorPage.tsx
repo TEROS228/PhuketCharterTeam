@@ -88,6 +88,66 @@ const PriceCalculatorPage = () => {
     return null;
   };
 
+  const get2DayPriceForDate = (date: Date): number | null => {
+    const month = date.getMonth() + 1; // 1-12
+    const day = date.getDate();
+    const year = date.getFullYear();
+
+    // Проверка на нерабочие месяцы (июнь-сентябрь)
+    if (month >= 6 && month <= 9) {
+      return null;
+    }
+
+    // Создаем объект даты для сравнения
+    const checkDate = new Date(year, month - 1, day);
+
+    // Nov 1st - Nov 30th: 85000
+    const nov1 = new Date(year, 10, 1);
+    const nov30 = new Date(year, 10, 30);
+    if (checkDate >= nov1 && checkDate <= nov30) {
+      return 85000;
+    }
+
+    // Dec 1st - Dec 25th: 95000
+    const dec1 = new Date(year, 11, 1);
+    const dec25 = new Date(year, 11, 25);
+    if (checkDate >= dec1 && checkDate <= dec25) {
+      return 95000;
+    }
+
+    // Dec 26th - Jan 15th: 105000 (нужно учитывать переход года)
+    const dec26 = new Date(year, 11, 26);
+    const dec31 = new Date(year, 11, 31);
+    const jan1 = new Date(year, 0, 1);
+    const jan15 = new Date(year, 0, 15);
+    if ((checkDate >= dec26 && checkDate <= dec31) || (checkDate >= jan1 && checkDate <= jan15)) {
+      return 105000;
+    }
+
+    // Jan 16th - Mar 1st: 95000
+    const jan16 = new Date(year, 0, 16);
+    const mar1 = new Date(year, 2, 1);
+    if (checkDate >= jan16 && checkDate <= mar1) {
+      return 95000;
+    }
+
+    // Mar 2nd - Jun 1st: 85000
+    const mar2 = new Date(year, 2, 2);
+    const jun1 = new Date(year, 5, 1);
+    if (checkDate >= mar2 && checkDate <= jun1) {
+      return 85000;
+    }
+
+    // Oct 1st - Oct 31st: 85000 (добавим октябрь)
+    const oct1 = new Date(year, 9, 1);
+    const oct31 = new Date(year, 9, 31);
+    if (checkDate >= oct1 && checkDate <= oct31) {
+      return 85000;
+    }
+
+    return null;
+  };
+
   const calculateTotalPrice = (start: string, end: string): number | null => {
     if (!start || !end) return null;
 
@@ -99,10 +159,24 @@ const PriceCalculatorPage = () => {
       return null;
     }
 
+    // Подсчитываем количество дней
+    const diffTime = endDateObj.getTime() - startDateObj.getTime();
+    const numberOfDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    // Если тур ровно 1 день - используем цену для 1 дня
+    if (numberOfDays === 1) {
+      return getDailyPriceForDate(startDateObj);
+    }
+
+    // Если тур ровно 2 дня - используем специальную цену для 2 дней
+    if (numberOfDays === 2) {
+      return get2DayPriceForDate(startDateObj);
+    }
+
+    // Для туров больше 2 дней - считаем сумму по дням
     let totalPrice = 0;
     let currentDate = new Date(startDateObj);
 
-    // Проходим по каждому дню в диапазоне
     while (currentDate < endDateObj) {
       const dailyPrice = getDailyPriceForDate(currentDate);
 
@@ -245,17 +319,33 @@ const PriceCalculatorPage = () => {
                 <label className="block text-sm sm:text-base font-semibold text-gray-700 mb-3">
                   Выберите маршрут
                 </label>
-                <select
-                  value={selectedRoute}
-                  onChange={(e) => setSelectedRoute(Number(e.target.value))}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base bg-white"
-                >
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {routes.map((route) => (
-                    <option key={route.id} value={route.id}>
-                      {route.name}
-                    </option>
+                    <button
+                      key={route.id}
+                      onClick={() => setSelectedRoute(route.id)}
+                      className={`p-3 sm:p-4 rounded-xl border-2 transition-all duration-300 text-left ${
+                        selectedRoute === route.id
+                          ? 'border-blue-600 bg-blue-50 shadow-lg scale-[1.02]'
+                          : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
+                      }`}
+                    >
+                      <div className="flex items-start gap-2">
+                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5 ${
+                          selectedRoute === route.id ? 'border-blue-600' : 'border-gray-300'
+                        }`}>
+                          {selectedRoute === route.id && (
+                            <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
+                          )}
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-sm text-gray-900 line-clamp-2">{route.name}</h3>
+                          <p className="text-xs text-gray-500 mt-1">{route.duration} {route.duration === 1 ? 'день' : route.duration === 2 ? 'дня' : 'дней'}</p>
+                        </div>
+                      </div>
+                    </button>
                   ))}
-                </select>
+                </div>
               </div>
 
               {/* Выбор дат */}
