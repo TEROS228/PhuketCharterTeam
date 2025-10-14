@@ -1,80 +1,156 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+interface Route {
+  id: number;
+  name: string;
+  duration: number; // количество дней
+}
+
 const PriceCalculatorPage = () => {
   const navigate = useNavigate();
-  const [selectedDate, setSelectedDate] = useState('');
-  const [duration, setDuration] = useState<1 | 2>(1);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [selectedRoute, setSelectedRoute] = useState<number>(1);
   const [catamaran, setCatamaran] = useState<'astrea42' | 'lucia40'>('astrea42');
   const [calculatedPrice, setCalculatedPrice] = useState<number | null>(null);
   const [isOffSeason, setIsOffSeason] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const getPriceForDate = (dateString: string, days: 1 | 2): number | null => {
-    if (!dateString) return null;
+  const routes: Route[] = [
+    { id: 1, name: '1 День. Пхукет - Острова Кхай -Райнг Яй - Нака', duration: 1 },
+    { id: 2, name: '1 День. Пхукет - Пханг Нга (остров Хонг - остров Дж. Бонда)', duration: 1 },
+    { id: 4, name: '2 Дня. Пхукет - остров Рача Яй', duration: 2 },
+    { id: 5, name: '2 Дня. Пхукет - Краби (Чикен Айленд+ Ао Нанг + Ралей бич)', duration: 2 },
+    { id: 6, name: '2 Дня. Пхукет - остров Пи Пи (бухта Майя бэй фильм "Пляж "+ Пхи Пхи дон)', duration: 2 },
+    { id: 7, name: '3 Дня Острова Phi Phi Don Island + Краби', duration: 3 },
+    { id: 8, name: '3 Дня. Острова Пхи Пхи Дон + Остров Рача', duration: 3 },
+    { id: 10, name: '7 Дней. Большое путешествие по Андаманскому морю', duration: 7 },
+  ];
 
-    const date = new Date(dateString);
+  const getDailyPriceForDate = (date: Date): number | null => {
     const month = date.getMonth() + 1; // 1-12
+    const day = date.getDate();
+    const year = date.getFullYear();
 
     // Проверка на нерабочие месяцы (июнь-сентябрь)
     if (month >= 6 && month <= 9) {
       return null;
     }
 
-    // Цены для 1 дня по месяцам
-    const prices1Day: { [key: number]: number } = {
-      1: 50000,   // Январь
-      2: 45000,   // Февраль
-      3: 45000,   // Март
-      4: 40000,   // Апрель
-      5: 40000,   // Май
-      10: 40000,  // Октябрь
-      11: 40000,  // Ноябрь
-      12: 45000,  // Декабрь
-    };
+    // Создаем объект даты для сравнения
+    const checkDate = new Date(year, month - 1, day);
 
-    // Цены для 2 дней по месяцам
-    const prices2Days: { [key: number]: number } = {
-      1: 95000,   // Январь
-      2: 90000,   // Февраль
-      3: 90000,   // Март
-      4: 85000,   // Апрель
-      5: 85000,   // Май
-      10: 85000,  // Октябрь
-      11: 85000,  // Ноябрь
-      12: 90000,  // Декабрь
-    };
+    // Nov 1st - Nov 30th: 40000
+    const nov1 = new Date(year, 10, 1);
+    const nov30 = new Date(year, 10, 30);
+    if (checkDate >= nov1 && checkDate <= nov30) {
+      return 40000;
+    }
 
-    const priceMap = days === 1 ? prices1Day : prices2Days;
+    // Dec 1st - Dec 25th: 45000
+    const dec1 = new Date(year, 11, 1);
+    const dec25 = new Date(year, 11, 25);
+    if (checkDate >= dec1 && checkDate <= dec25) {
+      return 45000;
+    }
 
-    return priceMap[month] || null;
+    // Dec 26th - Jan 15th: 50000 (нужно учитывать переход года)
+    const dec26 = new Date(year, 11, 26);
+    const dec31 = new Date(year, 11, 31);
+    const jan1 = new Date(year, 0, 1);
+    const jan15 = new Date(year, 0, 15);
+    if ((checkDate >= dec26 && checkDate <= dec31) || (checkDate >= jan1 && checkDate <= jan15)) {
+      return 50000;
+    }
+
+    // Jan 16th - Mar 1st: 45000
+    const jan16 = new Date(year, 0, 16);
+    const mar1 = new Date(year, 2, 1);
+    if (checkDate >= jan16 && checkDate <= mar1) {
+      return 45000;
+    }
+
+    // Mar 2nd - Jun 1st: 40000
+    const mar2 = new Date(year, 2, 2);
+    const jun1 = new Date(year, 5, 1);
+    if (checkDate >= mar2 && checkDate <= jun1) {
+      return 40000;
+    }
+
+    // Oct 1st - Oct 31st: 40000 (добавим октябрь)
+    const oct1 = new Date(year, 9, 1);
+    const oct31 = new Date(year, 9, 31);
+    if (checkDate >= oct1 && checkDate <= oct31) {
+      return 40000;
+    }
+
+    return null;
+  };
+
+  const calculateTotalPrice = (start: string, end: string): number | null => {
+    if (!start || !end) return null;
+
+    const startDateObj = new Date(start);
+    const endDateObj = new Date(end);
+
+    // Проверка корректности дат
+    if (startDateObj >= endDateObj) {
+      return null;
+    }
+
+    let totalPrice = 0;
+    let currentDate = new Date(startDateObj);
+
+    // Проходим по каждому дню в диапазоне
+    while (currentDate < endDateObj) {
+      const dailyPrice = getDailyPriceForDate(currentDate);
+
+      if (dailyPrice === null) {
+        // Если хотя бы один день попадает на нерабочий сезон
+        return null;
+      }
+
+      totalPrice += dailyPrice;
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    return totalPrice;
   };
 
   const handleCalculate = () => {
-    if (!selectedDate) {
-      alert('Пожалуйста, выберите дату');
+    setErrorMessage('');
+    setIsOffSeason(false);
+    setCalculatedPrice(null);
+
+    if (!startDate || !endDate) {
+      setErrorMessage('Пожалуйста, выберите даты начала и окончания');
       return;
     }
 
-    const price = getPriceForDate(selectedDate, duration);
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    if (start >= end) {
+      setErrorMessage('Дата окончания должна быть позже даты начала');
+      return;
+    }
+
+    const price = calculateTotalPrice(startDate, endDate);
 
     if (price === null) {
       setIsOffSeason(true);
-      setCalculatedPrice(null);
     } else {
-      setIsOffSeason(false);
       setCalculatedPrice(price);
     }
   };
 
   const pricePeriods = [
-    { period: 'Январь', price1Day: '50,000 ฿', price2Days: '95,000 ฿' },
-    { period: 'Февраль', price1Day: '45,000 ฿', price2Days: '90,000 ฿' },
-    { period: 'Март', price1Day: '45,000 ฿', price2Days: '90,000 ฿' },
-    { period: 'Апрель', price1Day: '40,000 ฿', price2Days: '85,000 ฿' },
-    { period: 'Май', price1Day: '40,000 ฿', price2Days: '85,000 ฿' },
-    { period: 'Октябрь', price1Day: '40,000 ฿', price2Days: '85,000 ฿' },
-    { period: 'Ноябрь', price1Day: '40,000 ฿', price2Days: '85,000 ฿' },
-    { period: 'Декабрь', price1Day: '45,000 ฿', price2Days: '90,000 ฿' },
+    { period: '1 ноября - 30 ноября', pricePerDay: '40,000 ฿', price2Days: '85,000 ฿' },
+    { period: '1 декабря - 25 декабря', pricePerDay: '45,000 ฿', price2Days: '95,000 ฿' },
+    { period: '26 декабря - 15 января', pricePerDay: '50,000 ฿', price2Days: '105,000 ฿' },
+    { period: '16 января - 1 марта', pricePerDay: '45,000 ฿', price2Days: '95,000 ฿' },
+    { period: '2 марта - 1 июня', pricePerDay: '40,000 ฿', price2Days: '85,000 ฿' },
   ];
 
   return (
@@ -164,46 +240,48 @@ const PriceCalculatorPage = () => {
                 </div>
               </div>
 
-              {/* Выбор продолжительности */}
+              {/* Выбор маршрута */}
               <div>
                 <label className="block text-sm sm:text-base font-semibold text-gray-700 mb-3">
-                  Продолжительность тура
+                  Выберите маршрут
                 </label>
-                <div className="grid grid-cols-2 gap-4">
-                  <button
-                    onClick={() => setDuration(1)}
-                    className={`px-6 py-4 rounded-xl font-semibold text-base sm:text-lg transition-all duration-300 ${
-                      duration === 1
-                        ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg scale-105'
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                    }`}
-                  >
-                    1 День
-                  </button>
-                  <button
-                    onClick={() => setDuration(2)}
-                    className={`px-6 py-4 rounded-xl font-semibold text-base sm:text-lg transition-all duration-300 ${
-                      duration === 2
-                        ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg scale-105'
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                    }`}
-                  >
-                    2 Дня
-                  </button>
-                </div>
+                <select
+                  value={selectedRoute}
+                  onChange={(e) => setSelectedRoute(Number(e.target.value))}
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base bg-white"
+                >
+                  {routes.map((route) => (
+                    <option key={route.id} value={route.id}>
+                      {route.name}
+                    </option>
+                  ))}
+                </select>
               </div>
 
-              {/* Выбор даты */}
-              <div>
-                <label className="block text-sm sm:text-base font-semibold text-gray-700 mb-3">
-                  Выберите дату начала тура
-                </label>
-                <input
-                  type="date"
-                  value={selectedDate}
-                  onChange={(e) => setSelectedDate(e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
-                />
+              {/* Выбор дат */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm sm:text-base font-semibold text-gray-700 mb-3">
+                    Дата начала
+                  </label>
+                  <input
+                    type="date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm sm:text-base font-semibold text-gray-700 mb-3">
+                    Дата окончания
+                  </label>
+                  <input
+                    type="date"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                  />
+                </div>
               </div>
 
               {/* Кнопка расчета */}
@@ -214,6 +292,13 @@ const PriceCalculatorPage = () => {
                 Рассчитать стоимость
               </button>
 
+              {/* Сообщение об ошибке */}
+              {errorMessage && (
+                <div className="mt-6 p-4 bg-red-50 border-2 border-red-200 rounded-xl">
+                  <p className="text-sm sm:text-base text-red-600 text-center">{errorMessage}</p>
+                </div>
+              )}
+
               {/* Результат */}
               {calculatedPrice !== null && (
                 <div className="mt-6 p-6 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl">
@@ -222,11 +307,14 @@ const PriceCalculatorPage = () => {
                     <p className="text-xs sm:text-sm text-blue-600 font-semibold mb-2">
                       {catamaran === 'astrea42' ? 'Astrea 42' : 'Lucia 40'}
                     </p>
+                    <p className="text-xs sm:text-sm text-gray-500 mb-2">
+                      {routes.find(r => r.id === selectedRoute)?.name}
+                    </p>
                     <p className="text-4xl sm:text-5xl font-bold text-green-600">
                       {calculatedPrice.toLocaleString()} ฿
                     </p>
                     <p className="text-xs sm:text-sm text-gray-500 mt-2">
-                      на {duration} {duration === 1 ? 'день' : 'дня'}
+                      с {new Date(startDate).toLocaleDateString('ru-RU')} по {new Date(endDate).toLocaleDateString('ru-RU')}
                     </p>
                   </div>
                 </div>
@@ -281,7 +369,7 @@ const PriceCalculatorPage = () => {
                         {period.period}
                       </td>
                       <td className="py-4 px-2 sm:px-4 text-center text-sm sm:text-base font-semibold text-blue-600">
-                        {period.price1Day}
+                        {period.pricePerDay}
                       </td>
                       <td className="py-4 px-2 sm:px-4 text-center text-sm sm:text-base font-semibold text-blue-600">
                         {period.price2Days}
@@ -290,6 +378,12 @@ const PriceCalculatorPage = () => {
                   ))}
                 </tbody>
               </table>
+            </div>
+
+            <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+              <p className="text-xs sm:text-sm text-gray-600 text-center">
+                <span className="font-semibold text-blue-700">Примечание:</span> При выборе произвольных дат итоговая стоимость рассчитывается как сумма цен за каждый день в выбранном периоде
+              </p>
             </div>
 
             <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
