@@ -1,32 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-interface Route {
-  id: number;
-  name: string;
-  duration: number; // количество дней
-}
-
 const PriceCalculatorPage = () => {
   const navigate = useNavigate();
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [selectedRoute, setSelectedRoute] = useState<number>(1);
   const [catamaran, setCatamaran] = useState<'astrea42' | 'lucia40'>('astrea42');
   const [calculatedPrice, setCalculatedPrice] = useState<number | null>(null);
   const [isOffSeason, setIsOffSeason] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const routes: Route[] = [
-    { id: 1, name: '1 День. Пхукет - Острова Кхай -Райнг Яй - Нака', duration: 1 },
-    { id: 2, name: '1 День. Пхукет - Пханг Нга (остров Хонг - остров Дж. Бонда)', duration: 1 },
-    { id: 4, name: '2 Дня. Пхукет - остров Рача Яй', duration: 2 },
-    { id: 5, name: '2 Дня. Пхукет - Краби (Чикен Айленд+ Ао Нанг + Ралей бич)', duration: 2 },
-    { id: 6, name: '2 Дня. Пхукет - остров Пи Пи (бухта Майя бэй фильм "Пляж "+ Пхи Пхи дон)', duration: 2 },
-    { id: 7, name: '3 Дня Острова Phi Phi Don Island + Краби', duration: 3 },
-    { id: 8, name: '3 Дня. Острова Пхи Пхи Дон + Остров Рача', duration: 3 },
-    { id: 10, name: '7 Дней. Большое путешествие по Андаманскому морю', duration: 7 },
-  ];
 
   const getDailyPriceForDate = (date: Date): number | null => {
     const month = date.getMonth() + 1; // 1-12
@@ -154,14 +137,14 @@ const PriceCalculatorPage = () => {
     const startDateObj = new Date(start);
     const endDateObj = new Date(end);
 
-    // Проверка корректности дат
-    if (startDateObj >= endDateObj) {
+    // Проверка корректности дат (дата окончания должна быть >= даты начала)
+    if (startDateObj > endDateObj) {
       return null;
     }
 
-    // Подсчитываем количество дней
+    // Подсчитываем количество дней ВКЛЮЧИТЕЛЬНО (с 14 по 15 = 2 дня)
     const diffTime = endDateObj.getTime() - startDateObj.getTime();
-    const numberOfDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const numberOfDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
 
     // Если тур ровно 1 день - используем цену для 1 дня
     if (numberOfDays === 1) {
@@ -177,7 +160,8 @@ const PriceCalculatorPage = () => {
     let totalPrice = 0;
     let currentDate = new Date(startDateObj);
 
-    while (currentDate < endDateObj) {
+    // Проходим по всем дням ВКЛЮЧАЯ конечную дату
+    while (currentDate <= endDateObj) {
       const dailyPrice = getDailyPriceForDate(currentDate);
 
       if (dailyPrice === null) {
@@ -205,8 +189,8 @@ const PriceCalculatorPage = () => {
     const start = new Date(startDate);
     const end = new Date(endDate);
 
-    if (start >= end) {
-      setErrorMessage('Дата окончания должна быть позже даты начала');
+    if (start > end) {
+      setErrorMessage('Дата окончания должна быть не раньше даты начала');
       return;
     }
 
@@ -314,40 +298,6 @@ const PriceCalculatorPage = () => {
                 </div>
               </div>
 
-              {/* Выбор маршрута */}
-              <div>
-                <label className="block text-sm sm:text-base font-semibold text-gray-700 mb-3">
-                  Выберите маршрут
-                </label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {routes.map((route) => (
-                    <button
-                      key={route.id}
-                      onClick={() => setSelectedRoute(route.id)}
-                      className={`p-3 sm:p-4 rounded-xl border-2 transition-all duration-300 text-left ${
-                        selectedRoute === route.id
-                          ? 'border-blue-600 bg-blue-50 shadow-lg scale-[1.02]'
-                          : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
-                      }`}
-                    >
-                      <div className="flex items-start gap-2">
-                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5 ${
-                          selectedRoute === route.id ? 'border-blue-600' : 'border-gray-300'
-                        }`}>
-                          {selectedRoute === route.id && (
-                            <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
-                          )}
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-sm text-gray-900 line-clamp-2">{route.name}</h3>
-                          <p className="text-xs text-gray-500 mt-1">{route.duration} {route.duration === 1 ? 'день' : route.duration === 2 ? 'дня' : 'дней'}</p>
-                        </div>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
               {/* Выбор дат */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
@@ -396,9 +346,6 @@ const PriceCalculatorPage = () => {
                     <p className="text-sm sm:text-base text-gray-600 mb-1">Стоимость аренды</p>
                     <p className="text-xs sm:text-sm text-blue-600 font-semibold mb-2">
                       {catamaran === 'astrea42' ? 'Astrea 42' : 'Lucia 40'}
-                    </p>
-                    <p className="text-xs sm:text-sm text-gray-500 mb-2">
-                      {routes.find(r => r.id === selectedRoute)?.name}
                     </p>
                     <p className="text-4xl sm:text-5xl font-bold text-green-600">
                       {calculatedPrice.toLocaleString()} ฿
