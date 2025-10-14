@@ -71,66 +71,6 @@ const PriceCalculatorPage = () => {
     return null;
   };
 
-  const get2DayPriceForDate = (date: Date): number | null => {
-    const month = date.getMonth() + 1; // 1-12
-    const day = date.getDate();
-    const year = date.getFullYear();
-
-    // Проверка на нерабочие месяцы (июнь-сентябрь)
-    if (month >= 6 && month <= 9) {
-      return null;
-    }
-
-    // Создаем объект даты для сравнения
-    const checkDate = new Date(year, month - 1, day);
-
-    // Nov 1st - Nov 30th: 85000
-    const nov1 = new Date(year, 10, 1);
-    const nov30 = new Date(year, 10, 30);
-    if (checkDate >= nov1 && checkDate <= nov30) {
-      return 85000;
-    }
-
-    // Dec 1st - Dec 25th: 95000
-    const dec1 = new Date(year, 11, 1);
-    const dec25 = new Date(year, 11, 25);
-    if (checkDate >= dec1 && checkDate <= dec25) {
-      return 95000;
-    }
-
-    // Dec 26th - Jan 15th: 105000 (нужно учитывать переход года)
-    const dec26 = new Date(year, 11, 26);
-    const dec31 = new Date(year, 11, 31);
-    const jan1 = new Date(year, 0, 1);
-    const jan15 = new Date(year, 0, 15);
-    if ((checkDate >= dec26 && checkDate <= dec31) || (checkDate >= jan1 && checkDate <= jan15)) {
-      return 105000;
-    }
-
-    // Jan 16th - Mar 1st: 95000
-    const jan16 = new Date(year, 0, 16);
-    const mar1 = new Date(year, 2, 1);
-    if (checkDate >= jan16 && checkDate <= mar1) {
-      return 95000;
-    }
-
-    // Mar 2nd - Jun 1st: 85000
-    const mar2 = new Date(year, 2, 2);
-    const jun1 = new Date(year, 5, 1);
-    if (checkDate >= mar2 && checkDate <= jun1) {
-      return 85000;
-    }
-
-    // Oct 1st - Oct 31st: 85000 (добавим октябрь)
-    const oct1 = new Date(year, 9, 1);
-    const oct31 = new Date(year, 9, 31);
-    if (checkDate >= oct1 && checkDate <= oct31) {
-      return 85000;
-    }
-
-    return null;
-  };
-
   const calculateTotalPrice = (start: string, end: string): number | null => {
     if (!start || !end) return null;
 
@@ -146,21 +86,15 @@ const PriceCalculatorPage = () => {
     const diffTime = endDateObj.getTime() - startDateObj.getTime();
     const numberOfDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
 
-    // Если тур ровно 1 день - используем цену для 1 дня
-    if (numberOfDays === 1) {
-      return getDailyPriceForDate(startDateObj);
+    // Проверка: доступны только 1, 2, 3 или 7 дней
+    if (numberOfDays !== 1 && numberOfDays !== 2 && numberOfDays !== 3 && numberOfDays !== 7) {
+      return null;
     }
 
-    // Если тур ровно 2 дня - используем специальную цену для 2 дней
-    if (numberOfDays === 2) {
-      return get2DayPriceForDate(startDateObj);
-    }
-
-    // Для туров больше 2 дней - считаем сумму по дням
+    // Подсчитываем сумму за все дни
     let totalPrice = 0;
     let currentDate = new Date(startDateObj);
 
-    // Проходим по всем дням ВКЛЮЧАЯ конечную дату
     while (currentDate <= endDateObj) {
       const dailyPrice = getDailyPriceForDate(currentDate);
 
@@ -173,7 +107,12 @@ const PriceCalculatorPage = () => {
       currentDate.setDate(currentDate.getDate() + 1);
     }
 
-    return totalPrice;
+    // Добавляем стоимость ночей (каждая ночь = 5000)
+    // Количество ночей = количество дней - 1
+    const numberOfNights = numberOfDays - 1;
+    const nightsCost = numberOfNights * 5000;
+
+    return totalPrice + nightsCost;
   };
 
   const handleCalculate = () => {
@@ -194,6 +133,15 @@ const PriceCalculatorPage = () => {
       return;
     }
 
+    // Проверяем количество дней
+    const diffTime = end.getTime() - start.getTime();
+    const numberOfDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+    if (numberOfDays !== 1 && numberOfDays !== 2 && numberOfDays !== 3 && numberOfDays !== 7) {
+      setErrorMessage(`Доступны только туры на 1 день/0 ночей, 2 дня/1 ночь, 3 дня/2 ночи или 7 дней/6 ночей. Вы выбрали ${numberOfDays} ${numberOfDays === 4 || numberOfDays === 5 || numberOfDays === 6 ? 'дней' : numberOfDays === 1 ? 'день' : 'дня'}.`);
+      return;
+    }
+
     const price = calculateTotalPrice(startDate, endDate);
 
     if (price === null) {
@@ -204,11 +152,11 @@ const PriceCalculatorPage = () => {
   };
 
   const pricePeriods = [
-    { period: '1 ноября - 30 ноября', pricePerDay: '40,000 ฿', price2Days: '85,000 ฿' },
-    { period: '1 декабря - 25 декабря', pricePerDay: '45,000 ฿', price2Days: '95,000 ฿' },
-    { period: '26 декабря - 15 января', pricePerDay: '50,000 ฿', price2Days: '105,000 ฿' },
-    { period: '16 января - 1 марта', pricePerDay: '45,000 ฿', price2Days: '95,000 ฿' },
-    { period: '2 марта - 1 июня', pricePerDay: '40,000 ฿', price2Days: '85,000 ฿' },
+    { period: '1 ноября - 30 ноября', pricePerDay: '40,000 ฿' },
+    { period: '1 декабря - 25 декабря', pricePerDay: '45,000 ฿' },
+    { period: '26 декабря - 15 января', pricePerDay: '50,000 ฿' },
+    { period: '16 января - 1 марта', pricePerDay: '45,000 ฿' },
+    { period: '2 марта - 1 июня', pricePerDay: '40,000 ฿' },
   ];
 
   return (
@@ -340,22 +288,33 @@ const PriceCalculatorPage = () => {
               )}
 
               {/* Результат */}
-              {calculatedPrice !== null && (
-                <div className="mt-6 p-6 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl">
-                  <div className="text-center">
-                    <p className="text-sm sm:text-base text-gray-600 mb-1">Стоимость аренды</p>
-                    <p className="text-xs sm:text-sm text-blue-600 font-semibold mb-2">
-                      {catamaran === 'astrea42' ? 'Astrea 42' : 'Lucia 40'}
-                    </p>
-                    <p className="text-4xl sm:text-5xl font-bold text-green-600">
-                      {calculatedPrice.toLocaleString()} ฿
-                    </p>
-                    <p className="text-xs sm:text-sm text-gray-500 mt-2">
-                      с {new Date(startDate).toLocaleDateString('ru-RU')} по {new Date(endDate).toLocaleDateString('ru-RU')}
-                    </p>
+              {calculatedPrice !== null && (() => {
+                const start = new Date(startDate);
+                const end = new Date(endDate);
+                const diffTime = end.getTime() - start.getTime();
+                const numberOfDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+                const numberOfNights = numberOfDays - 1;
+
+                return (
+                  <div className="mt-6 p-6 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl">
+                    <div className="text-center">
+                      <p className="text-sm sm:text-base text-gray-600 mb-1">Стоимость аренды</p>
+                      <p className="text-xs sm:text-sm text-blue-600 font-semibold mb-2">
+                        {catamaran === 'astrea42' ? 'Astrea 42' : 'Lucia 40'}
+                      </p>
+                      <p className="text-4xl sm:text-5xl font-bold text-green-600">
+                        {calculatedPrice.toLocaleString()} ฿
+                      </p>
+                      <p className="text-xs sm:text-sm text-gray-500 mt-2">
+                        {numberOfDays} {numberOfDays === 1 ? 'день' : numberOfDays <= 4 ? 'дня' : 'дней'} / {numberOfNights} {numberOfNights === 1 ? 'ночь' : numberOfNights <= 4 ? 'ночи' : 'ночей'}
+                      </p>
+                      <p className="text-xs sm:text-sm text-gray-500">
+                        с {new Date(startDate).toLocaleDateString('ru-RU')} по {new Date(endDate).toLocaleDateString('ru-RU')}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              )}
+                );
+              })()}
 
               {isOffSeason && (
                 <div className="mt-6 p-6 bg-gradient-to-r from-orange-50 to-red-50 border-2 border-orange-200 rounded-xl">
@@ -389,10 +348,7 @@ const PriceCalculatorPage = () => {
                       Период
                     </th>
                     <th className="text-center py-3 px-2 sm:px-4 text-sm sm:text-base font-semibold text-gray-700">
-                      1 День
-                    </th>
-                    <th className="text-center py-3 px-2 sm:px-4 text-sm sm:text-base font-semibold text-gray-700">
-                      2 Дня
+                      Цена за день
                     </th>
                   </tr>
                 </thead>
@@ -408,19 +364,36 @@ const PriceCalculatorPage = () => {
                       <td className="py-4 px-2 sm:px-4 text-center text-sm sm:text-base font-semibold text-blue-600">
                         {period.pricePerDay}
                       </td>
-                      <td className="py-4 px-2 sm:px-4 text-center text-sm sm:text-base font-semibold text-blue-600">
-                        {period.price2Days}
-                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
 
-            <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-              <p className="text-xs sm:text-sm text-gray-600 text-center">
-                <span className="font-semibold text-blue-700">Примечание:</span> При выборе произвольных дат итоговая стоимость рассчитывается как сумма цен за каждый день в выбранном периоде
-              </p>
+            <div className="mt-4 space-y-3">
+              <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
+                <p className="text-xs sm:text-sm text-gray-700 text-center">
+                  <span className="font-semibold text-green-700">Стоимость ночей:</span> каждая ночь добавляет <span className="font-bold">5,000 ฿</span> к общей стоимости
+                </p>
+              </div>
+
+              <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                <p className="text-xs sm:text-sm text-gray-700 text-center mb-2">
+                  <span className="font-semibold text-blue-700">Доступные варианты туров:</span>
+                </p>
+                <ul className="text-xs sm:text-sm text-gray-600 space-y-1">
+                  <li>• 1 день / 0 ночей</li>
+                  <li>• 2 дня / 1 ночь (+5,000 ฿)</li>
+                  <li>• 3 дня / 2 ночи (+10,000 ฿)</li>
+                  <li>• 7 дней / 6 ночей (+30,000 ฿)</li>
+                </ul>
+              </div>
+
+              <div className="p-3 bg-purple-50 border border-purple-200 rounded-lg">
+                <p className="text-xs sm:text-sm text-gray-700 text-center">
+                  <span className="font-semibold text-purple-700">Формула расчета:</span> (сумма цен за все дни) + (количество ночей × 5,000 ฿)
+                </p>
+              </div>
             </div>
 
             <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
