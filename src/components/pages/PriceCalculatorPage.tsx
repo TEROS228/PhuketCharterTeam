@@ -9,6 +9,7 @@ const PriceCalculatorPage = () => {
   const [calculatedPrice, setCalculatedPrice] = useState<number | null>(null);
   const [isOffSeason, setIsOffSeason] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
 
   // Новые параметры
   const [numberOfPeople, setNumberOfPeople] = useState<number>(1);
@@ -330,6 +331,17 @@ const PriceCalculatorPage = () => {
                   />
                 </div>
               </div>
+
+              {/* Кнопка просмотра календаря */}
+              <button
+                onClick={() => setIsCalendarModalOpen(true)}
+                className="w-full px-4 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl font-semibold text-sm sm:text-base shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                Посмотреть доступные даты
+              </button>
 
               {/* Количество человек */}
               <div>
@@ -674,6 +686,42 @@ const PriceCalculatorPage = () => {
           </div>
         </div>
       </div>
+
+      {/* Модальное окно с календарем */}
+      {isCalendarModalOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onClick={() => setIsCalendarModalOpen(false)}
+        >
+          <div
+            className="bg-white rounded-2xl shadow-2xl w-full max-w-6xl h-[90vh] flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Заголовок модалки */}
+            <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Календарь доступных дат</h2>
+              <button
+                onClick={() => setIsCalendarModalOpen(false)}
+                className="p-2 hover:bg-gray-100 rounded-lg transition-all duration-200"
+              >
+                <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Iframe с календарем */}
+            <div className="flex-1 overflow-hidden">
+              <iframe
+                src="https://teamup.com/ksitee8txsgajgf5rr"
+                className="w-full h-full"
+                frameBorder="0"
+                title="Календарь доступных дат"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
