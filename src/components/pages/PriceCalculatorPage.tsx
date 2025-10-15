@@ -16,6 +16,26 @@ const PriceCalculatorPage = () => {
   const [needChef, setNeedChef] = useState<boolean>(false);
   const [groceriesAmount, setGroceriesAmount] = useState<string>('');
 
+  // Вычисляем максимальное количество гостей в зависимости от длительности
+  const getMaxGuests = (): number => {
+    if (!startDate || !endDate) return 15;
+
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const diffTime = end.getTime() - start.getTime();
+    const numberOfDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+    return numberOfDays === 1 ? 15 : 12;
+  };
+
+  // Автоматически корректируем количество гостей при изменении дат
+  React.useEffect(() => {
+    const maxGuests = getMaxGuests();
+    if (numberOfPeople > maxGuests) {
+      setNumberOfPeople(maxGuests);
+    }
+  }, [startDate, endDate]);
+
 
   const getDailyPriceForDate = (date: Date): number | null => {
     const month = date.getMonth() + 1; // 1-12
@@ -304,15 +324,51 @@ const PriceCalculatorPage = () => {
                 <label className="block text-sm sm:text-base font-semibold text-gray-700 mb-3">
                   Количество гостей
                 </label>
-                <input
-                  type="number"
-                  min="1"
-                  max="10"
-                  value={numberOfPeople}
-                  onChange={(e) => setNumberOfPeople(Math.min(10, Math.max(1, parseInt(e.target.value) || 1)))}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
-                />
-                <p className="text-xs text-gray-500 mt-2">От 1 до 10 гостей</p>
+                <div className="flex items-center gap-4">
+                  {/* Кнопка минус */}
+                  <button
+                    type="button"
+                    onClick={() => setNumberOfPeople(Math.max(1, numberOfPeople - 1))}
+                    className="w-12 h-12 flex items-center justify-center bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold rounded-lg transition-all duration-200 text-xl"
+                  >
+                    −
+                  </button>
+
+                  {/* Поле ввода */}
+                  <div className="flex-1">
+                    <input
+                      type="number"
+                      min="1"
+                      max={getMaxGuests()}
+                      value={numberOfPeople}
+                      onChange={(e) => {
+                        const value = parseInt(e.target.value) || 1;
+                        setNumberOfPeople(Math.min(getMaxGuests(), Math.max(1, value)));
+                      }}
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base text-center font-semibold text-lg"
+                    />
+                  </div>
+
+                  {/* Кнопка плюс */}
+                  <button
+                    type="button"
+                    onClick={() => setNumberOfPeople(Math.min(getMaxGuests(), numberOfPeople + 1))}
+                    className="w-12 h-12 flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-all duration-200 text-xl"
+                  >
+                    +
+                  </button>
+                </div>
+                <p className="text-xs text-gray-500 mt-2">
+                  {startDate && endDate && (() => {
+                    const start = new Date(startDate);
+                    const end = new Date(endDate);
+                    const diffTime = end.getTime() - start.getTime();
+                    const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+                    return days === 1
+                      ? "Максимум 15 гостей для однодневного тура"
+                      : "Максимум 12 гостей для туров с ночевкой";
+                  })() || "Выберите даты для определения максимального количества гостей"}
+                </p>
               </div>
 
               {/* Питание */}
