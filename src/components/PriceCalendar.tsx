@@ -89,7 +89,7 @@ const months = [
                   </svg>
                 </div>
                 <h4 className="font-bold text-gray-900 mb-2">Экипаж</h4>
-                <p className="text-sm text-gray-600">Опытный капитан и стюардесса</p>
+                <p className="text-sm text-gray-600">Опытный капитан</p>
               </div>
               
               <div className="text-center group">

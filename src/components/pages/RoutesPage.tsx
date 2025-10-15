@@ -167,6 +167,7 @@ const RoutesPage = () => {
                   src={route.image}
                   alt={route.name}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
                     e.currentTarget.nextElementSibling?.classList.remove('hidden');

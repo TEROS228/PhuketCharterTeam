@@ -78,6 +78,7 @@ const CatamaranCard = ({ catamaran }: CatamaranCardProps) => {
             src={catamaran.image}
             alt={catamaran.name}
             className="w-full h-full object-cover"
+            loading="lazy"
             onError={(e) => {
               e.currentTarget.style.display = 'none';
               e.currentTarget.nextElementSibling?.classList.remove('hidden');

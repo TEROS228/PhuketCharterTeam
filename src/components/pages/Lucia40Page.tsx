@@ -125,9 +125,10 @@ const Lucia40Page = () => {
               <img
                 src={images[selectedImageIndex]}
                 alt={`Lucia 40 - ${imageLabels[selectedImageIndex]}`}
+                loading="lazy"
                 className={`w-full h-64 sm:h-80 lg:h-[500px] ${
                   images[selectedImageIndex].includes('cockpit.jpg') || images[selectedImageIndex].includes('sunset.jpg')
-                    ? 'object-contain bg-gray-900' 
+                    ? 'object-contain bg-gray-900'
                     : 'object-cover'
                 }`}
               />
@@ -147,7 +148,7 @@ const Lucia40Page = () => {
                       : 'border-gray-200 hover:border-gray-300'
                   }`}
                 >
-                  <img src={image} alt={imageLabels[index]} className="w-full h-14 sm:h-16 object-cover" />
+                  <img src={image} alt={imageLabels[index]} className="w-full h-14 sm:h-16 object-cover" loading="lazy" />
                   {selectedImageIndex === index && <div className="absolute inset-0 bg-blue-500/20"></div>}
                 </button>
               ))}

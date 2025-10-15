@@ -139,9 +139,10 @@ const Astrea42Page = () => {
               <img
                 src={images[selectedImageIndex]}
                 alt={`Astrea 42 - ${imageLabels[selectedImageIndex]}`}
+                loading="lazy"
                 className={`w-full h-64 sm:h-80 lg:h-[500px] ${
-                  images[selectedImageIndex].includes('cockpit.jpg') 
-                    ? 'object-contain bg-gray-900' 
+                  images[selectedImageIndex].includes('cockpit.jpg')
+                    ? 'object-contain bg-gray-900'
                     : 'object-cover'
                 }`}
               />
@@ -166,6 +167,7 @@ const Astrea42Page = () => {
                     src={image}
                     alt={imageLabels[index]}
                     className="w-full h-14 sm:h-16 object-cover"
+                    loading="lazy"
                   />
                   {selectedImageIndex === index && (
                     <div className="absolute inset-0 bg-blue-500/20"></div>
