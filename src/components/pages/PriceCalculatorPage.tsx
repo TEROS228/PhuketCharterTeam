@@ -34,6 +34,18 @@ const PriceCalculatorPage = () => {
     if (numberOfPeople > maxGuests) {
       setNumberOfPeople(maxGuests);
     }
+
+    // Сбрасываем питание если это не 1 день
+    if (startDate && endDate) {
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+      const diffTime = end.getTime() - start.getTime();
+      const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+      if (days !== 1 && needFood) {
+        setNeedFood(false);
+      }
+    }
   }, [startDate, endDate]);
 
 
@@ -371,30 +383,42 @@ const PriceCalculatorPage = () => {
                 </p>
               </div>
 
-              {/* Питание */}
-              <div className="border-2 border-gray-200 rounded-xl p-4 sm:p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex-1">
-                    <h3 className="text-sm sm:text-base font-semibold text-gray-700">Нужно питание?</h3>
-                    <p className="text-xs sm:text-sm text-gray-500 mt-1">500 ฿ на человека в день</p>
-                  </div>
-                  <label className="relative inline-flex items-center cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={needFood}
-                      onChange={(e) => setNeedFood(e.target.checked)}
-                      className="sr-only peer"
-                    />
-                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                  </label>
-                </div>
-                <button
-                  onClick={() => navigate('/food-menu')}
-                  className="w-full px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg font-medium text-sm hover:shadow-lg transition-all duration-200"
-                >
-                  📋 Посмотреть меню на 1 день
-                </button>
-              </div>
+              {/* Питание - только для 1-дневных туров */}
+              {startDate && endDate && (() => {
+                const start = new Date(startDate);
+                const end = new Date(endDate);
+                const diffTime = end.getTime() - start.getTime();
+                const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+                if (days === 1) {
+                  return (
+                    <div className="border-2 border-gray-200 rounded-xl p-4 sm:p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex-1">
+                          <h3 className="text-sm sm:text-base font-semibold text-gray-700">Нужно питание?</h3>
+                          <p className="text-xs sm:text-sm text-gray-500 mt-1">500 ฿ на человека в день</p>
+                        </div>
+                        <label className="relative inline-flex items-center cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={needFood}
+                            onChange={(e) => setNeedFood(e.target.checked)}
+                            className="sr-only peer"
+                          />
+                          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        </label>
+                      </div>
+                      <button
+                        onClick={() => navigate('/food-menu')}
+                        className="w-full px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg font-medium text-sm hover:shadow-lg transition-all duration-200"
+                      >
+                        📋 Посмотреть меню на 1 день
+                      </button>
+                    </div>
+                  );
+                }
+                return null;
+              })()}
 
               {/* Повар и продукты (только для 2, 3, 7 дней) */}
               {startDate && endDate && (() => {
