@@ -58,7 +58,7 @@ const FoodMenu = () => {
     
     // Создаем форму для отправки через FormSubmit
     const form = document.createElement('form');
-    form.action = 'https://formsubmit.co/leontrofim228@gmail.com';
+    form.action = 'https://formsubmit.co/first5500@gmail.com';
     form.method = 'POST';
     form.style.display = 'none';
     
