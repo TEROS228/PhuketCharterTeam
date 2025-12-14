@@ -57,6 +57,15 @@ const FoodMenu = () => {
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Отправляем событие конверсии в GTM
+    if (window.dataLayer) {
+      window.dataLayer.push({
+        event: 'form_submit',
+        form_type: 'food_order',
+        form_name: 'Заказ питания'
+      });
+    }
+
     // Устанавливаем флаг успешной отправки формы
     sessionStorage.setItem('formSubmitted', 'true');
 

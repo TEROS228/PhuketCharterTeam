@@ -40,6 +40,15 @@ const CatamaranCard = ({ catamaran }: CatamaranCardProps) => {
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Отправляем событие конверсии в GTM
+    if (window.dataLayer) {
+      window.dataLayer.push({
+        event: 'form_submit',
+        form_type: 'catamaran_booking',
+        form_name: `Бронирование ${catamaran.name}`
+      });
+    }
+
     // Устанавливаем флаг успешной отправки формы
     sessionStorage.setItem('formSubmitted', 'true');
 

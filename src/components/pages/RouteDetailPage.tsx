@@ -530,6 +530,15 @@ const RouteDetailPage = () => {
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Отправляем событие конверсии в GTM
+    if (window.dataLayer) {
+      window.dataLayer.push({
+        event: 'form_submit',
+        form_type: 'route_booking',
+        form_name: `Бронирование маршрута ${route?.name || ''}`
+      });
+    }
+
     // Устанавливаем флаг успешной отправки формы
     sessionStorage.setItem('formSubmitted', 'true');
 

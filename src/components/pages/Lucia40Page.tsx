@@ -46,6 +46,15 @@ const Lucia40Page = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
+    // Отправляем событие конверсии в GTM
+    if (window.dataLayer) {
+      window.dataLayer.push({
+        event: 'form_submit',
+        form_type: 'catamaran_booking',
+        form_name: 'Бронирование Lucia 40'
+      });
+    }
+
     // Устанавливаем флаг успешной отправки формы
     sessionStorage.setItem('formSubmitted', 'true');
 
