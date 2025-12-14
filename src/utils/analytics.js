@@ -3,9 +3,7 @@
 export const trackWhatsAppClick = () => {
   if (typeof window.gtag === 'function') {
     window.gtag('event', 'conversion', {
-      'send_to': 'AW-16788812201/whatsapp_click',
-      'event_category': 'engagement',
-      'event_label': 'WhatsApp Contact'
+      'send_to': 'AW-16788812201/0Mo4CKCl57gaEKnjw8U-'
     });
   }
 };
