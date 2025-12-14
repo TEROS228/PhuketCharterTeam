@@ -9,6 +9,7 @@ import RoutesPage from './components/pages/RoutesPage';
 import RouteDetailPage from './components/pages/RouteDetailPage';
 import PriceCalculatorPage from './components/pages/PriceCalculatorPage';
 import FoodMenu from './components/FoodMenu';
+import SuccessPage from './components/SuccessPage';
 import { useSmoothScroll } from './hooks/useSmoothScroll';
 
 const FleetPage = () => (
@@ -57,6 +58,7 @@ function App() {
           <Route path="/booking" element={<BookingPage />} />
           <Route path="/catamaran/astrea-42" element={<Astrea42Page />} />
           <Route path="/catamaran/lucia-40" element={<Lucia40Page />} />
+          <Route path="/success" element={<SuccessPage />} />
         </Routes>
       </main>
       <Footer />

@@ -66,7 +66,7 @@ const FoodMenu = () => {
     // Скрытые поля
     const fields = [
       { name: '_subject', value: `Заказ питания ${selectedMenu} от ${formData.firstName} ${formData.lastName}` },
-      { name: '_next', value: window.location.href + '?sent=true' },
+      { name: '_next', value: window.location.origin + window.location.pathname + '#/success' },
       { name: '_captcha', value: 'false' },
       { name: 'menu', value: selectedMenu },
       { name: 'first_name', value: formData.firstName },
@@ -259,10 +259,11 @@ const FoodMenu = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Телефон
+                      Телефон *
                     </label>
                     <input
                       type="tel"
+                      required
                       value={formData.phone}
                       onChange={(e) => setFormData({...formData, phone: e.target.value})}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"

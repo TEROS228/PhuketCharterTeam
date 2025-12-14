@@ -47,7 +47,7 @@ const CatamaranCard = ({ catamaran }: CatamaranCardProps) => {
     
     const fields = [
       { name: '_subject', value: `Новый запрос на бронирование ${catamaran.name} от ${formData.firstName} ${formData.lastName}` },
-      { name: '_next', value: window.location.href + '?sent=true' },
+      { name: '_next', value: window.location.origin + window.location.pathname + '#/success' },
       { name: '_captcha', value: 'false' },
       { name: 'catamaran', value: catamaran.name },
       { name: 'first_name', value: formData.firstName },
@@ -277,10 +277,11 @@ const CatamaranCard = ({ catamaran }: CatamaranCardProps) => {
 
                   <div>
                     <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
-                      Телефон
+                      Телефон *
                     </label>
                     <input
                       type="tel"
+                      required
                       value={formData.phone}
                       onChange={(e) => setFormData({...formData, phone: e.target.value})}
                       className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base"
