@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { trackWhatsAppClick, trackEmailSubmit } from '../utils/analytics';
 
 const FoodMenu = () => {
   const [showContactForm, setShowContactForm] = useState(false);
@@ -55,13 +56,16 @@ const FoodMenu = () => {
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
+    // Отслеживаем конверсию
+    trackEmailSubmit();
+
     // Создаем форму для отправки через FormSubmit
     const form = document.createElement('form');
     form.action = 'https://formsubmit.co/first5500@gmail.com';
     form.method = 'POST';
     form.style.display = 'none';
-    
+
     // Скрытые поля
     const fields = [
       { name: '_subject', value: `Заказ питания ${selectedMenu} от ${formData.firstName} ${formData.lastName}` },
@@ -76,7 +80,7 @@ const FoodMenu = () => {
       { name: 'additional_info', value: formData.additionalInfo },
       { name: 'page_url', value: window.location.href }
     ];
-    
+
     fields.forEach(field => {
       const input = document.createElement('input');
       input.type = 'hidden';
@@ -84,7 +88,7 @@ const FoodMenu = () => {
       input.value = field.value;
       form.appendChild(input);
     });
-    
+
     document.body.appendChild(form);
     form.submit();
   };
@@ -187,6 +191,7 @@ const FoodMenu = () => {
                   <div className="space-y-3">
                     <a
                       href="https://wa.me/79147953955"
+                      onClick={trackWhatsAppClick}
                       className="flex items-center justify-center gap-3 w-full bg-green-600 text-white py-3 rounded-xl font-medium hover:bg-green-700 transition"
                     >
                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

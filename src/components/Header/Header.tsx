@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './Header.css';
+import { trackWhatsAppClick } from '../../utils/analytics';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -143,6 +144,7 @@ const Header = () => {
               href="https://wa.me/79147953955"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={trackWhatsAppClick}
               className="hidden md:flex items-center gap-2 px-3 lg:px-4 py-2.5 text-green-600 hover:text-green-700 border-2 border-green-200 rounded-full hover:border-green-300 hover:bg-green-50 transition-all duration-300 group"
             >
               <svg className="w-4 h-4 flex-shrink-0 group-hover:scale-110 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
@@ -224,6 +226,7 @@ const Header = () => {
                 href="https://wa.me/79147953955"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={trackWhatsAppClick}
                 className="flex items-center gap-3 px-4 py-3 text-green-600 font-medium border border-green-200 rounded-xl bg-green-50 hover:bg-green-100 transition-all duration-300 transform hover:translate-x-2"
               >
                 <svg className="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
