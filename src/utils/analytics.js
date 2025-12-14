@@ -2,8 +2,9 @@
 
 export const trackWhatsAppClick = () => {
   if (typeof window.gtag === 'function') {
+    // Переход в Whatsapp
     window.gtag('event', 'conversion', {
-      'send_to': 'AW-16788812201/0Mo4CKCl57gaEKnjw8U-'
+      'send_to': 'AW-7098454688/0Mo4CKCl57gaEKnjw8U-'
     });
   }
 };
