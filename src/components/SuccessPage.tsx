@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 const SuccessPage = () => {
   const navigate = useNavigate();
   const [isValidAccess, setIsValidAccess] = useState(false);
+  const [countdown, setCountdown] = useState(10);
 
   useEffect(() => {
     // Проверяем, была ли отправлена форма
@@ -20,6 +21,21 @@ const SuccessPage = () => {
       navigate('/');
     }
   }, [navigate]);
+
+  useEffect(() => {
+    if (!isValidAccess) return;
+
+    // Обратный отсчет
+    if (countdown > 0) {
+      const timer = setTimeout(() => {
+        setCountdown(countdown - 1);
+      }, 1000);
+      return () => clearTimeout(timer);
+    } else {
+      // Перенаправление на главную через 10 секунд
+      navigate('/');
+    }
+  }, [countdown, isValidAccess, navigate]);
 
   // Показываем контент только если доступ валиден
   if (!isValidAccess) {
@@ -77,6 +93,14 @@ const SuccessPage = () => {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Счетчик автоперенаправления */}
+        <div className="text-center mb-6">
+          <p className="text-sm text-gray-500">
+            Автоматическое перенаправление на главную через{' '}
+            <span className="font-bold text-blue-600">{countdown}</span> сек...
+          </p>
         </div>
 
         {/* Кнопки навигации */}
