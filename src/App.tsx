@@ -35,6 +35,18 @@ function ScrollToTop() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    // Отправляем событие просмотра страницы в Google Tag Manager
+    if (window.dataLayer) {
+      window.dataLayer.push({
+        event: 'pageview',
+        page: {
+          path: pathname,
+          title: document.title,
+          url: window.location.href
+        }
+      });
+    }
   }, [pathname]);
 
   return null;
