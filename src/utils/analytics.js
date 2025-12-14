@@ -10,8 +10,9 @@ export const trackWhatsAppClick = () => {
 
 export const trackEmailSubmit = () => {
   if (typeof window.gtag === 'function') {
+    // Контакт (отправка формы)
     window.gtag('event', 'conversion', {
-      'send_to': 'AW-16788812201/0Mo4CKCl57gaEKnjw8U-'
+      'send_to': 'AW-16788812201/ZqKGCLjwlNEbEKnjw8U-'
     });
   }
 };
@@ -26,11 +27,18 @@ export const initAnalytics = () => {
     }
   });
 
-  // Отслеживание отправки всех форм
+  // Отслеживание отправки всех форм с задержкой
   document.addEventListener('submit', (e) => {
     const form = e.target;
     if (form.tagName === 'FORM' && form.action.includes('formsubmit.co')) {
-      trackEmailSubmit();
+      e.preventDefault(); // Останавливаем отправку
+
+      trackEmailSubmit(); // Отправляем конверсию
+
+      // Даем время Google Ads отправить данные (300ms), затем отправляем форму
+      setTimeout(() => {
+        form.submit();
+      }, 300);
     }
   });
 };

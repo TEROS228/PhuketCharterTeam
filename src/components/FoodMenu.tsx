@@ -57,9 +57,6 @@ const FoodMenu = () => {
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Отслеживаем конверсию
-    trackEmailSubmit();
-
     // Создаем форму для отправки через FormSubmit
     const form = document.createElement('form');
     form.action = 'https://formsubmit.co/first5500@gmail.com';
