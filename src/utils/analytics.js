@@ -11,9 +11,7 @@ export const trackWhatsAppClick = () => {
 export const trackEmailSubmit = () => {
   if (typeof window.gtag === 'function') {
     window.gtag('event', 'conversion', {
-      'send_to': 'AW-16788812201/email_submit',
-      'event_category': 'engagement',
-      'event_label': 'Email Form Submit'
+      'send_to': 'AW-16788812201/0Mo4CKCl57gaEKnjw8U-'
     });
   }
 };
