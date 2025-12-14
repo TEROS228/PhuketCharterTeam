@@ -57,6 +57,9 @@ const FoodMenu = () => {
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Устанавливаем флаг успешной отправки формы
+    sessionStorage.setItem('formSubmitted', 'true');
+
     // Создаем форму для отправки через FormSubmit
     const form = document.createElement('form');
     form.action = 'https://formsubmit.co/leontrofim228@gmail.com';
