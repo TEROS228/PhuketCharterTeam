@@ -140,7 +140,7 @@ const Header = () => {
           <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
             {/* WhatsApp кнопка - скрыта на мобильных, видна на планшетах+ */}
             <a
-              href="https://wa.me/66854741566"
+              href="https://wa.me/79147953955"
               target="_blank"
               rel="noopener noreferrer"
               className="hidden md:flex items-center gap-2 px-3 lg:px-4 py-2.5 text-green-600 hover:text-green-700 border-2 border-green-200 rounded-full hover:border-green-300 hover:bg-green-50 transition-all duration-300 group"
@@ -220,8 +220,8 @@ const Header = () => {
               </button>
               
               {/* Mobile WhatsApp */}
-              <a 
-                href="https://wa.me/66854741566"
+              <a
+                href="https://wa.me/79147953955"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 px-4 py-3 text-green-600 font-medium border border-green-200 rounded-xl bg-green-50 hover:bg-green-100 transition-all duration-300 transform hover:translate-x-2"

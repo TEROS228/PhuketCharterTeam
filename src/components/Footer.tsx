@@ -17,11 +17,11 @@ const Footer = () => {
           <div className="text-center sm:text-left">
             <h4 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Контакты</h4>
             <div className="space-y-2 text-sm sm:text-base text-gray-400">
-              <a href="tel:+66854741566" className="flex items-center justify-center sm:justify-start gap-2 hover:text-white transition">
+              <a href="tel:+79147953955" className="flex items-center justify-center sm:justify-start gap-2 hover:text-white transition">
                 <svg className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
-                <span>+66 85 474 1566</span>
+                <span>+7 914 795 39 55</span>
               </a>
               <a href="mailto:first5500@gmail.com" className="flex items-center justify-center sm:justify-start gap-2 hover:text-white transition">
                 <svg className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -81,8 +81,8 @@ const Footer = () => {
               </a>
               
               {/* WhatsApp */}
-              <a 
-                href="https://wa.me/66854741566" 
+              <a
+                href="https://wa.me/79147953955"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-gray-700 hover:bg-green-600 w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all duration-300 group"

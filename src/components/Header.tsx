@@ -117,13 +117,13 @@ const Header = () => {
           <div className="flex items-center space-x-4">
             {/* Телефон */}
             <a
-              href="tel:+66854741566"
+              href="tel:+79147953955"
               className="hidden md:flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-blue-600 border border-gray-200 rounded-full hover:border-blue-300 hover:bg-blue-50 transition-all duration-300 group"
             >
               <svg className="phone-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
-              <span className="text-sm font-medium">+66 123 456 789</span>
+              <span className="text-sm font-medium">+7 914 795 39 55</span>
             </a>
 
             {/* Главная кнопка */}
@@ -183,13 +183,13 @@ const Header = () => {
 
               {/* Mobile phone */}
               <a
-                href="tel:+66854741566"
+                href="tel:+79147953955"
                 className="flex items-center gap-3 px-4 py-3 text-blue-600 font-medium border border-blue-200 rounded-xl bg-blue-50 hover:bg-blue-100 transition-all duration-300 mobile-nav-item"
               >
                 <svg className="mobile-nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
-                +66 123 456 789
+                +7 914 795 39 55
               </a>
             </nav>
           </div>

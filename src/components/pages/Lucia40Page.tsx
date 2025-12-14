@@ -193,8 +193,8 @@ const Lucia40Page = () => {
 
             <div className="space-y-3 sm:space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <a 
-                  href="https://wa.me/66854741566"
+                <a
+                  href="https://wa.me/79147953955"
                   className="flex items-center justify-center gap-2 bg-green-600 text-white py-2.5 sm:py-3 rounded-xl font-medium hover:bg-green-700 transition text-sm sm:text-base"
                 >
                   <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">

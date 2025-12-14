@@ -673,7 +673,7 @@ const PriceCalculatorPage = () => {
           {/* Кнопка связаться */}
           <div className="mt-8 text-center">
             <a
-              href="https://wa.me/66854741566"
+              href="https://wa.me/79147953955"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-8 py-4 bg-green-600 text-white rounded-xl font-semibold text-base sm:text-lg shadow-lg hover:bg-green-700 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"

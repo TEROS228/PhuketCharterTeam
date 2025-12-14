@@ -185,8 +185,8 @@ const FoodMenu = () => {
                   <p className="text-gray-600 mb-4">Выберите удобный способ связи:</p>
                   
                   <div className="space-y-3">
-                    <a 
-                      href="https://wa.me/66854741566"
+                    <a
+                      href="https://wa.me/79147953955"
                       className="flex items-center justify-center gap-3 w-full bg-green-600 text-white py-3 rounded-xl font-medium hover:bg-green-700 transition"
                     >
                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
