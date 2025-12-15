@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { trackWhatsAppClick, trackEmailSubmit } from '../utils/analytics';
+import { trackWhatsAppClick } from '../utils/analytics';
 
 const FoodMenu = () => {
   const [showContactForm, setShowContactForm] = useState(false);

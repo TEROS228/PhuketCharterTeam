@@ -1,4 +1,5 @@
-// Google Ads конверсии
+// Google Ads конверсии через GTM
+// Старый код отслеживания через gtag удален - теперь все конверсии идут через GTM
 
 export const trackWhatsAppClick = () => {
   if (typeof window.gtag === 'function') {
@@ -9,16 +10,7 @@ export const trackWhatsAppClick = () => {
   }
 };
 
-export const trackEmailSubmit = () => {
-  if (typeof window.gtag === 'function') {
-    // Контакт (отправка формы)
-    window.gtag('event', 'conversion', {
-      'send_to': 'AW-16788812201/ZqKGCLjwlNEbEKnjw8U-'
-    });
-  }
-};
-
-// Автоматическое отслеживание всех ссылок на WhatsApp и отправок форм
+// Автоматическое отслеживание всех ссылок на WhatsApp
 export const initAnalytics = () => {
   // Отслеживание кликов по WhatsApp
   document.addEventListener('click', (e) => {
@@ -28,18 +20,6 @@ export const initAnalytics = () => {
     }
   });
 
-  // Отслеживание отправки всех форм с задержкой
-  document.addEventListener('submit', (e) => {
-    const form = e.target;
-    if (form.tagName === 'FORM' && form.action.includes('formsubmit.co')) {
-      e.preventDefault(); // Останавливаем отправку
-
-      trackEmailSubmit(); // Отправляем конверсию
-
-      // Даем время Google Ads отправить данные (300ms), затем отправляем форму
-      setTimeout(() => {
-        form.submit();
-      }, 300);
-    }
-  });
+  // Отслеживание форм теперь через GTM в компонентах
+  // Старый автоматический обработчик удален
 };
