@@ -57,6 +57,14 @@ const FoodMenu = () => {
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Защита от множественной отправки
+    const lastSubmit = sessionStorage.getItem('lastFormSubmit');
+    const now = Date.now();
+    if (lastSubmit && now - parseInt(lastSubmit) < 1000) {
+      return;
+    }
+    sessionStorage.setItem('lastFormSubmit', now.toString());
+
     // Отправляем событие конверсии в GTM
     if (window.dataLayer) {
       window.dataLayer.push({
