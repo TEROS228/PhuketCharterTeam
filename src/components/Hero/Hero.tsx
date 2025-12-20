@@ -38,17 +38,17 @@ const Hero = () => {
         <div className="max-w-5xl mx-auto">
           <div className="mb-6 sm:mb-8">
             <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
-              <span className="inline-block animate-fade-in-up delay-100">
+              <span className="inline-block">
                 Аренда катамаранов
               </span>
               <br />
-              <span className="inline-block animate-fade-in-up delay-200 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+              <span className="inline-block bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
                 на Пхукете
               </span>
             </h1>
             
             <p className="text-sm sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 opacity-90 max-w-3xl mx-auto animate-fade-in-up delay-300">
-              Незабываемые путешествия по Андаманскому морю с комфортом и стилем
+              Катамаран на Пхукете и незабываемые путешествия по Андаманскому морю с комфортом и стилем
             </p>
           </div>
 

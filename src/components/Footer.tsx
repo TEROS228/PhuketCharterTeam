@@ -99,6 +99,11 @@ const Footer = () => {
         {/* Copyright */}
         <div className="border-t border-gray-700 mt-6 sm:mt-8 pt-6 sm:pt-8 text-center text-gray-400">
           <p className="text-xs sm:text-sm">© 2024 Phuket Charter Team. Все права защищены.</p>
+          <p className="text-xs sm:text-sm mt-2">
+            <a href="/privacy-policy" className="hover:text-white transition-colors underline">
+              Политика конфиденциальности
+            </a>
+          </p>
         </div>
       </div>
     </footer>
