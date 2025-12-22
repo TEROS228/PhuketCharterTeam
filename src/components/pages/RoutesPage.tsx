@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Price from '../Price';
 import { useNavigate } from 'react-router-dom';
 
 interface Route {
@@ -177,7 +178,7 @@ const RoutesPage = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                 <div className="absolute top-3 sm:top-4 right-3 sm:right-4">
                   <div className="bg-blue-600 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold">
-                    {route.price} ฿
+                    <Price amount={route.price} />
                   </div>
                 </div>
               </div>

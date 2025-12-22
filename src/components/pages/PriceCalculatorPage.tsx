@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Price from '../Price';
 
 const PriceCalculatorPage = () => {
   const navigate = useNavigate();
@@ -212,11 +213,11 @@ const PriceCalculatorPage = () => {
   };
 
   const pricePeriods = [
-    { period: '1 ноября - 30 ноября', pricePerDay: '40,000 ฿' },
-    { period: '1 декабря - 25 декабря', pricePerDay: '45,000 ฿' },
-    { period: '26 декабря - 15 января', pricePerDay: '50,000 ฿' },
-    { period: '16 января - 1 марта', pricePerDay: '45,000 ฿' },
-    { period: '2 марта - 1 июня', pricePerDay: '40,000 ฿' },
+    { period: '1 ноября - 30 ноября', price: 40000 },
+    { period: '1 декабря - 25 декабря', price: 45000 },
+    { period: '26 декабря - 15 января', price: 50000 },
+    { period: '16 января - 1 марта', price: 45000 },
+    { period: '2 марта - 1 июня', price: 40000 },
   ];
 
   return (
@@ -408,7 +409,7 @@ const PriceCalculatorPage = () => {
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex-1">
                           <h3 className="text-sm sm:text-base font-semibold text-gray-700">Нужно питание?</h3>
-                          <p className="text-xs sm:text-sm text-gray-500 mt-1">500 ฿ на человека в день</p>
+                          <p className="text-xs sm:text-sm text-gray-500 mt-1"><Price amount={500} /> на человека в день</p>
                         </div>
                         <label className="relative inline-flex items-center cursor-pointer">
                           <input
@@ -450,7 +451,7 @@ const PriceCalculatorPage = () => {
                       <div className="flex items-center justify-between mb-4 pb-4 border-b border-purple-200">
                         <div className="flex-1">
                           <h4 className="text-sm font-semibold text-gray-700">Персональный повар</h4>
-                          <p className="text-xs text-gray-500 mt-1">4,000 ฿ за день × {days} {days === 1 ? 'день' : days <= 4 ? 'дня' : 'дней'} = {4000 * days} ฿</p>
+                          <p className="text-xs text-gray-500 mt-1"><Price amount={4000} /> за день × {days} {days === 1 ? 'день' : days <= 4 ? 'дня' : 'дней'} = <Price amount={4000 * days} /></p>
                         </div>
                         <label className="relative inline-flex items-center cursor-pointer">
                           <input
@@ -526,7 +527,7 @@ const PriceCalculatorPage = () => {
                             <p className="text-sm font-semibold text-gray-700">Аренда катамарана</p>
                             <p className="text-xs text-gray-500">{catamaran === 'astrea42' ? 'Astrea 42' : 'Lucia 40'} • {numberOfDays} {numberOfDays === 1 ? 'день' : numberOfDays <= 4 ? 'дня' : 'дней'}</p>
                           </div>
-                          <p className="text-base font-bold text-gray-900">{basePrice.toLocaleString()} ฿</p>
+                          <p className="text-base font-bold text-gray-900"><Price amount={basePrice} /></p>
                         </div>
 
                         {/* Питание */}
@@ -534,9 +535,9 @@ const PriceCalculatorPage = () => {
                           <div className="flex justify-between items-center pb-3 border-b border-gray-200">
                             <div>
                               <p className="text-sm font-semibold text-gray-700">Питание</p>
-                              <p className="text-xs text-gray-500">{numberOfPeople} {numberOfPeople === 1 ? 'человек' : numberOfPeople <= 4 ? 'человека' : 'человек'} × {numberOfDays} {numberOfDays === 1 ? 'день' : numberOfDays <= 4 ? 'дня' : 'дней'} × 500 ฿</p>
+                              <p className="text-xs text-gray-500">{numberOfPeople} {numberOfPeople === 1 ? 'человек' : numberOfPeople <= 4 ? 'человека' : 'человек'} × {numberOfDays} {numberOfDays === 1 ? 'день' : numberOfDays <= 4 ? 'дня' : 'дней'} × <Price amount={500} /></p>
                             </div>
-                            <p className="text-base font-bold text-green-600">+{foodCost.toLocaleString()} ฿</p>
+                            <p className="text-base font-bold text-green-600">+<Price amount={foodCost} /></p>
                           </div>
                         )}
 
@@ -545,9 +546,9 @@ const PriceCalculatorPage = () => {
                           <div className="flex justify-between items-center pb-3 border-b border-gray-200">
                             <div>
                               <p className="text-sm font-semibold text-gray-700">Персональный повар</p>
-                              <p className="text-xs text-gray-500">4,000 ฿ × {numberOfDays} {numberOfDays === 1 ? 'день' : numberOfDays <= 4 ? 'дня' : 'дней'}</p>
+                              <p className="text-xs text-gray-500"><Price amount={4000} /> × {numberOfDays} {numberOfDays === 1 ? 'день' : numberOfDays <= 4 ? 'дня' : 'дней'}</p>
                             </div>
-                            <p className="text-base font-bold text-purple-600">+{chefCost.toLocaleString()} ฿</p>
+                            <p className="text-base font-bold text-purple-600">+<Price amount={chefCost} /></p>
                           </div>
                         )}
 
@@ -558,7 +559,7 @@ const PriceCalculatorPage = () => {
                               <p className="text-sm font-semibold text-gray-700">Продукты по чеку</p>
                               <p className="text-xs text-gray-500">По вашему запросу</p>
                             </div>
-                            <p className="text-base font-bold text-orange-600">+{groceriesCost.toLocaleString()} ฿</p>
+                            <p className="text-base font-bold text-orange-600">+<Price amount={groceriesCost} /></p>
                           </div>
                         )}
                       </div>
@@ -569,7 +570,7 @@ const PriceCalculatorPage = () => {
                       <div className="text-center">
                         <p className="text-sm sm:text-base text-gray-600 mb-1">Итоговая стоимость</p>
                         <p className="text-4xl sm:text-5xl font-bold text-green-600">
-                          {calculatedPrice.toLocaleString()} ฿
+                          <Price amount={calculatedPrice} />
                         </p>
                         <p className="text-xs sm:text-sm text-gray-500 mt-2">
                           {numberOfDays} {numberOfDays === 1 ? 'день' : numberOfDays <= 4 ? 'дня' : 'дней'} / {numberOfNights} {numberOfNights === 1 ? 'ночь' : numberOfNights <= 4 ? 'ночи' : 'ночей'} • {numberOfPeople} {numberOfPeople === 1 ? 'гость' : numberOfPeople <= 4 ? 'гостя' : 'гостей'}
@@ -629,7 +630,7 @@ const PriceCalculatorPage = () => {
                         {period.period}
                       </td>
                       <td className="py-4 px-2 sm:px-4 text-center text-sm sm:text-base font-semibold text-blue-600">
-                        {period.pricePerDay}
+                        <Price amount={period.price} />
                       </td>
                     </tr>
                   ))}
@@ -640,7 +641,7 @@ const PriceCalculatorPage = () => {
             <div className="mt-4 space-y-3">
               <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
                 <p className="text-xs sm:text-sm text-gray-700 text-center">
-                  <span className="font-semibold text-green-700">Стоимость ночей:</span> каждая ночь добавляет <span className="font-bold">5,000 ฿</span> к общей стоимости
+                  <span className="font-semibold text-green-700">Стоимость ночей:</span> каждая ночь добавляет <span className="font-bold"><Price amount={5000} /></span> к общей стоимости
                 </p>
               </div>
 
@@ -650,15 +651,15 @@ const PriceCalculatorPage = () => {
                 </p>
                 <ul className="text-xs sm:text-sm text-gray-600 space-y-1">
                   <li>• 1 день / 0 ночей</li>
-                  <li>• 2 дня / 1 ночь (+5,000 ฿)</li>
-                  <li>• 3 дня / 2 ночи (+10,000 ฿)</li>
-                  <li>• 7 дней / 6 ночей (+30,000 ฿)</li>
+                  <li>• 2 дня / 1 ночь (+<Price amount={5000} />)</li>
+                  <li>• 3 дня / 2 ночи (+<Price amount={10000} />)</li>
+                  <li>• 7 дней / 6 ночей (+<Price amount={30000} />)</li>
                 </ul>
               </div>
 
               <div className="p-3 bg-purple-50 border border-purple-200 rounded-lg">
                 <p className="text-xs sm:text-sm text-gray-700 text-center">
-                  <span className="font-semibold text-purple-700">Формула расчета:</span> (сумма цен за все дни) + (количество ночей × 5,000 ฿)
+                  <span className="font-semibold text-purple-700">Формула расчета:</span> (сумма цен за все дни) + (количество ночей × <Price amount={5000} />)
                 </p>
               </div>
             </div>

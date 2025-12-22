@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { trackWhatsAppClick } from '../utils/analytics';
+import Price from './Price';
 
 const FoodMenu = () => {
   const [showContactForm, setShowContactForm] = useState(false);
@@ -131,7 +132,7 @@ const FoodMenu = () => {
                     {menu.title}
                   </h3>
                   <div className="text-3xl font-bold text-blue-600">
-                    {menu.price} ฿
+                    <Price amount={menu.price} />
                   </div>
                   <p className="text-sm text-gray-500">с человека</p>
                 </div>
@@ -172,7 +173,7 @@ const FoodMenu = () => {
               <div className="text-4xl mb-4">🍽️</div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Условия заказа</h3>
               <p className="text-gray-600 mb-4">
-                Все меню доступны по цене <strong>500 ฿ с человека</strong>
+                Все меню доступны по цене <strong><Price amount={500} /> с человека</strong>
               </p>
               <p className="text-sm text-gray-500">
                 * Минимальный заказ от 6 человек
@@ -323,7 +324,7 @@ const FoodMenu = () => {
                   <div className="bg-blue-50 p-4 rounded-lg">
                     <h4 className="font-semibold text-blue-900 mb-2">{selectedMenu}</h4>
                     <p className="text-sm text-blue-700">
-                      500 ฿ с человека • Минимум 6 человек
+                      <Price amount={500} /> с человека • Минимум 6 человек
                     </p>
                   </div>
 

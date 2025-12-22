@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Price from '../Price';
 
 const Astrea42Page = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -206,7 +207,7 @@ const Astrea42Page = () => {
                 Когда команда Fountaine Pajot проектировала эту яхту, их цель была ясна: предложить наилучшее сочетание эстетики, комфорта и мореходных качеств в 42-футовом катамаране. Результат превзошел ожидания. Не только ее обтекаемый силуэт приятен на вид, но Astréa 42 также оснащена функциями и оборудованием, которые обычно можно найти только на гораздо более крупных катамаранах. Однако при длине 12,58 метра ею по-прежнему очень легко управлять, и тот, кто встанет у штурвала, почувствует настоящую связь с лодкой, находясь прямо рядом с солнечной палубой, где гости могут составить ему компанию. Пора отправляться в море!
               </p>
               <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
-                <span className="text-2xl sm:text-3xl font-bold text-blue-600">От 40,000 ฿</span>
+                <span className="text-2xl sm:text-3xl font-bold text-blue-600">От <Price amount={40000} /></span>
                 <span className="text-sm sm:text-base text-gray-500">за день</span>
               </div>
             </div>
@@ -274,15 +275,15 @@ const Astrea42Page = () => {
               <div className="space-y-3 sm:space-y-4">
                 <div className="border-l-4 border-blue-500 pl-3 sm:pl-4">
                   <div className="font-semibold text-sm sm:text-base">С 9:00 до 17:00</div>
-                  <div className="text-xs sm:text-sm text-gray-600">От 40,000 ฿</div>
+                  <div className="text-xs sm:text-sm text-gray-600">От <Price amount={40000} /></div>
                 </div>
                 <div className="border-l-4 border-orange-500 pl-3 sm:pl-4">
                   <div className="font-semibold text-sm sm:text-base">2 дня / 1 ночь</div>
-                  <div className="text-xs sm:text-sm text-gray-600">От 85,000 ฿</div>
+                  <div className="text-xs sm:text-sm text-gray-600">От <Price amount={85000} /></div>
                 </div>
                 <div className="border-l-4 border-purple-500 pl-3 sm:pl-4">
                   <div className="font-semibold text-sm sm:text-base">3 дня / 2 ночи</div>
-                  <div className="text-xs sm:text-sm text-gray-600">От 130,000 ฿</div>
+                  <div className="text-xs sm:text-sm text-gray-600">От <Price amount={130000} /></div>
                 </div>
               </div>
             </div>
@@ -405,7 +406,7 @@ const Astrea42Page = () => {
                 <div className="bg-blue-50 p-3 sm:p-4 rounded-lg">
                   <h4 className="font-semibold text-blue-900 mb-1 sm:mb-2 text-sm sm:text-base">Astrea 42</h4>
                   <p className="text-xs sm:text-sm text-blue-700">
-                    Роскошный катамаран до 15 человек • От 40,000 ฿/день
+                    Роскошный катамаран до 15 человек • От <Price amount={40000} />/день
                   </p>
                 </div>
 

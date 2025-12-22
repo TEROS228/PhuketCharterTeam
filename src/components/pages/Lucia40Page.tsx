@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Price from '../Price';
 
 const Lucia40Page = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -184,7 +185,7 @@ const Lucia40Page = () => {
                 Один из лучших дизайнеров катамаранов Оливье Ракупо спроектировал катамаран с элегантными и современными линиями, модернизировал рулевое управление, а также оптимизировал объемы жилых помещений. Не удивительно что удобная и маневренная Lucia 40 стала самым популярным 40-футовым катамараном на рынке. Этот катамаран — это настоящая революция в его классе.
               </p>
               <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
-                <span className="text-2xl sm:text-3xl font-bold text-blue-600">От 40,000 ฿</span>
+                <span className="text-2xl sm:text-3xl font-bold text-blue-600">От <Price amount={40000} /></span>
                 <span className="text-sm sm:text-base text-gray-500">за день</span>
               </div>
             </div>
@@ -246,13 +247,13 @@ const Lucia40Page = () => {
               <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">Пакеты аренды</h3>
               <div className="space-y-3 sm:space-y-4">
                 {[
-                  { time: 'С 9:00 до 17:00', price: 'От 40,000 ฿', color: 'blue' },
-                  { time: '2 дня / 1 ночь', price: 'От 85,000 ฿', color: 'orange' },
-                  { time: '3 дня / 2 ночи', price: 'От 130,000 ฿', color: 'purple' }
+                  { time: 'С 9:00 до 17:00', price: 40000, color: 'blue' },
+                  { time: '2 дня / 1 ночь', price: 85000, color: 'orange' },
+                  { time: '3 дня / 2 ночи', price: 130000, color: 'purple' }
                 ].map((pkg, idx) => (
                   <div key={idx} className={`border-l-4 border-${pkg.color}-500 pl-3 sm:pl-4`}>
                     <div className="font-semibold text-sm sm:text-base">{pkg.time}</div>
-                    <div className="text-xs sm:text-sm text-gray-600">{pkg.price}</div>
+                    <div className="text-xs sm:text-sm text-gray-600">От <Price amount={pkg.price} /></div>
                   </div>
                 ))}
               </div>
@@ -337,7 +338,7 @@ const Lucia40Page = () => {
 
                 <div className="bg-blue-50 p-3 sm:p-4 rounded-lg">
                   <h4 className="font-semibold text-blue-900 mb-1 sm:mb-2 text-sm sm:text-base">Lucia 40</h4>
-                  <p className="text-xs sm:text-sm text-blue-700">Элегантный катамаран до 12 человек • От 40,000 ฿/день</p>
+                  <p className="text-xs sm:text-sm text-blue-700">Элегантный катамаран до 12 человек • От <Price amount={40000} />/день</p>
                 </div>
 
                 <div className="flex gap-2 sm:gap-3 pt-2 sm:pt-4">

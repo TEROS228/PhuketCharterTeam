@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Price from '../Price';
 import { useParams, useNavigate } from 'react-router-dom';
 
 interface Route {
@@ -617,7 +618,7 @@ const RouteDetailPage = () => {
                 </div>
               </div>
               <div className="text-left sm:text-right">
-                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white whitespace-nowrap">{route.price} ฿</div>
+                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white whitespace-nowrap"><Price amount={route.price} /></div>
               </div>
             </div>
           </div>
@@ -697,7 +698,7 @@ const RouteDetailPage = () => {
               <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
                 <div className="flex justify-between items-center p-3 sm:p-4 bg-gray-50 rounded-lg">
                   <span className="text-sm sm:text-base text-gray-600">Стоимость:</span>
-                  <span className="text-xl sm:text-2xl font-bold text-blue-600 whitespace-nowrap">{route.price} ฿</span>
+                  <span className="text-xl sm:text-2xl font-bold text-blue-600 whitespace-nowrap"><Price amount={route.price} /></span>
                 </div>
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-0 p-3 sm:p-4 bg-gray-50 rounded-lg">
                   <span className="text-sm sm:text-base text-gray-600">Продолжительность:</span>
@@ -768,7 +769,7 @@ const RouteDetailPage = () => {
                 </div>
                 <div className="bg-blue-50 p-3 sm:p-4 rounded-lg">
                   <h4 className="font-semibold text-blue-900 mb-1 text-sm sm:text-base line-clamp-2">{route.name}</h4>
-                  <p className="text-xs sm:text-sm text-blue-700">{route.duration} • {route.price} ฿</p>
+                  <p className="text-xs sm:text-sm text-blue-700">{route.duration} • <Price amount={route.price} /></p>
                 </div>
                 <div className="flex gap-2 sm:gap-3 pt-2 sm:pt-4">
                   <button type="button" onClick={() => setShowContactForm(false)} className="flex-1 px-4 sm:px-6 py-2 sm:py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm sm:text-base">Отмена</button>
