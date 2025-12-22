@@ -10,7 +10,7 @@ const Footer = () => {
           <div className="text-center sm:text-left">
             <div className="flex items-center justify-center sm:justify-start gap-3 mb-3 sm:mb-4">
               <img
-                src="/images/logo.png"
+                src="/images/logo.png?v=2"
                 alt="Phuket Charter Team"
                 className="w-12 h-12 sm:w-14 sm:h-14 object-contain"
               />

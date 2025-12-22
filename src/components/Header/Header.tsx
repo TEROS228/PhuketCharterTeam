@@ -104,7 +104,7 @@ const Header = () => {
           <div className="flex items-center space-x-2 sm:space-x-3 group cursor-pointer flex-shrink-0" onClick={goToHome}>
             <div className="relative flex-shrink-0">
               <img
-                src="/images/logo.png"
+                src="/images/logo.png?v=2"
                 alt="Phuket Charter Team"
                 className="w-10 h-10 sm:w-12 sm:h-12 object-contain group-hover:scale-110 transition-all duration-300"
               />
