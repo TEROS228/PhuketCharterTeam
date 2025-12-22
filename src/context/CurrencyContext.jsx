@@ -46,15 +46,21 @@ export const CurrencyProvider = ({ children }) => {
       : priceInTHB;
 
     if (currency === 'RUB') {
-      return Math.round(numericPrice * exchangeRate);
+      // Точная конвертация без округления
+      return numericPrice * exchangeRate;
     }
     return numericPrice;
   };
 
   const formatPrice = (priceInTHB) => {
     const converted = convertPrice(priceInTHB);
+    // Для рублей показываем без копеек, но точное значение
+    const displayAmount = currency === 'RUB'
+      ? Math.floor(converted).toLocaleString('ru-RU')
+      : converted.toLocaleString('ru-RU');
+
     return {
-      amount: converted.toLocaleString('ru-RU'),
+      amount: displayAmount,
       symbol: currency === 'THB' ? '฿' : '₽',
       currency: currency
     };
