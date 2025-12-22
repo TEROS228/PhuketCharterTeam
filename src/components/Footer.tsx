@@ -8,7 +8,14 @@ const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {/* О компании */}
           <div className="text-center sm:text-left">
-            <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Phuket Charter</h3>
+            <div className="flex items-center justify-center sm:justify-start gap-3 mb-3 sm:mb-4">
+              <img
+                src="/images/logo.png"
+                alt="Phuket Charter Team"
+                className="w-12 h-12 sm:w-14 sm:h-14 object-contain"
+              />
+              <h3 className="text-xl sm:text-2xl font-bold">Phuket Charter</h3>
+            </div>
             <p className="text-sm sm:text-base text-gray-400">
               Аренда катамаранов премиум-класса на Пхукете. Незабываемые путешествия по Андаманскому морю.
             </p>

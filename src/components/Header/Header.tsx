@@ -103,12 +103,11 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center space-x-2 sm:space-x-3 group cursor-pointer flex-shrink-0" onClick={goToHome}>
             <div className="relative flex-shrink-0">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 via-cyan-500 to-teal-500 rounded-full flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
-                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <div className="absolute inset-0 w-10 h-10 sm:w-12 sm:h-12 border-2 border-blue-400 rounded-full animate-ping opacity-30"></div>
+              <img
+                src="/images/logo.png"
+                alt="Phuket Charter Team"
+                className="w-10 h-10 sm:w-12 sm:h-12 object-contain group-hover:scale-110 transition-all duration-300"
+              />
             </div>
             <div className="flex flex-col justify-center">
               <span className="text-base sm:text-xl lg:text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent leading-tight">
