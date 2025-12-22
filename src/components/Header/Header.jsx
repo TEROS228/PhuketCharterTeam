@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './Header.css';
 import { trackWhatsAppClick } from '../../utils/analytics';
+import { useCurrency } from '../../context/CurrencyContext';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const { currency, toggleCurrency } = useCurrency();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,7 +21,7 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavigation = (sectionId: string) => {
+  const handleNavigation = (sectionId) => {
     if (sectionId === 'routes') {
       navigate('/routes');
     } else if (sectionId === 'calculator') {
@@ -141,6 +143,30 @@ const Header = () => {
 
           {/* Action Buttons */}
           <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+            {/* Currency Selector */}
+            <div className="flex items-center gap-1 bg-gray-100 rounded-full p-1">
+              <button
+                onClick={() => toggleCurrency('THB')}
+                className={`px-2 sm:px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${
+                  currency === 'THB'
+                    ? 'bg-blue-600 text-white shadow-md'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                ฿
+              </button>
+              <button
+                onClick={() => toggleCurrency('RUB')}
+                className={`px-2 sm:px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${
+                  currency === 'RUB'
+                    ? 'bg-blue-600 text-white shadow-md'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                ₽
+              </button>
+            </div>
+
             {/* WhatsApp кнопка - скрыта на мобильных, видна на планшетах+ */}
             <a
               href="https://wa.me/79147953955"

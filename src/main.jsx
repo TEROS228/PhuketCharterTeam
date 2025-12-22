@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './index.css';
 import { initAnalytics } from './utils/analytics';
+import { CurrencyProvider } from './context/CurrencyContext';
 
 // Инициализируем отслеживание аналитики после загрузки DOM
 window.addEventListener('DOMContentLoaded', () => {
@@ -13,7 +14,9 @@ window.addEventListener('DOMContentLoaded', () => {
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <CurrencyProvider>
+        <App />
+      </CurrencyProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

@@ -1,22 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useCurrency } from '../context/CurrencyContext';
 
-interface Catamaran {
-  id: number;
-  name: string;
-  description: string;
-  price: string;
-  capacity: number;
-  length: string;
-  image: string;
-  features: string[];
-}
-
-interface CatamaranCardProps {
-  catamaran: Catamaran;
-}
-
-const CatamaranCard = ({ catamaran }: CatamaranCardProps) => {
+const CatamaranCard = ({ catamaran }) => {
+  const { formatPrice } = useCurrency();
   const [showContactForm, setShowContactForm] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
@@ -26,7 +13,7 @@ const CatamaranCard = ({ catamaran }: CatamaranCardProps) => {
     additionalInfo: ''
   });
 
-  const getCatamaranLink = (id: number) => {
+  const getCatamaranLink = (id) => {
     switch (id) {
       case 1:
         return '/catamaran/astrea-42';
@@ -37,7 +24,7 @@ const CatamaranCard = ({ catamaran }: CatamaranCardProps) => {
     }
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
 
     // Защита от множественной отправки
@@ -130,10 +117,17 @@ const CatamaranCard = ({ catamaran }: CatamaranCardProps) => {
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-4 gap-2">
             <h3 className="text-xl sm:text-2xl font-bold text-gray-900">{catamaran.name}</h3>
             <div className="text-left sm:text-right">
-              <span className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-                {catamaran.price} ฿
-              </span>
-              <p className="text-xs sm:text-sm text-gray-500">за день</p>
+              {(() => {
+                const price = formatPrice(catamaran.price);
+                return (
+                  <>
+                    <span className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                      От {price.amount} {price.symbol}
+                    </span>
+                    <p className="text-xs sm:text-sm text-gray-500">за день</p>
+                  </>
+                );
+              })()}
             </div>
           </div>
           
@@ -328,7 +322,7 @@ const CatamaranCard = ({ catamaran }: CatamaranCardProps) => {
                   <div className="bg-blue-50 p-3 sm:p-4 rounded-lg">
                     <h4 className="font-semibold text-blue-900 mb-1 sm:mb-2 text-sm sm:text-base">{catamaran.name}</h4>
                     <p className="text-xs sm:text-sm text-blue-700">
-                      До {catamaran.capacity} человек • От {catamaran.price} ฿/день
+                      До {catamaran.capacity} человек • От {formatPrice(catamaran.price).amount} {formatPrice(catamaran.price).symbol}/день
                     </p>
                   </div>
 
