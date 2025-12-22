@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Performance optimizations */
+* {
+  font-display: swap;
+}
+
 /* Кастомные стили */
 @layer components {
   .btn-primary {
