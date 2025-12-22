@@ -8,12 +8,13 @@ const Hero = () => {
     <section className="relative h-screen overflow-hidden">
       {/* Фоновое изображение */}
       <div className="absolute inset-0">
-        <div 
-          className="w-full h-full bg-cover bg-center transition-all duration-700"
-          style={{
-            backgroundImage: `url('/images/hero/catamaran-hero-bg.jpg'), url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80')`
-          }}
-        ></div>
+        <img
+          src="/images/hero/catamaran-hero-bg.jpg"
+          alt="Catamaran on Phuket"
+          className="w-full h-full object-cover"
+          fetchPriority="high"
+          loading="eager"
+        />
         
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-cyan-800/30 to-teal-700/40"></div>
         <div className="absolute inset-0 bg-black/30"></div>
@@ -47,13 +48,13 @@ const Hero = () => {
               </span>
             </h1>
             
-            <p className="text-sm sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 opacity-90 max-w-3xl mx-auto animate-fade-in-up delay-300">
+            <p className="text-sm sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 opacity-90 max-w-3xl mx-auto">
               Катамаран на Пхукете и незабываемые путешествия по Андаманскому морю с комфортом и стилем
             </p>
           </div>
 
           {/* Кнопки */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center mb-8 sm:mb-12 animate-fade-in-up delay-500">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center mb-8 sm:mb-12">
             <button
               onClick={() => {
                 const element = document.getElementById('fleet');
