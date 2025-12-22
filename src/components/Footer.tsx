@@ -9,11 +9,14 @@ const Footer = () => {
           {/* О компании */}
           <div className="text-center sm:text-left">
             <div className="flex items-center justify-center sm:justify-start gap-3 mb-3 sm:mb-4">
-              <img
-                src="/images/logo.png?v=2"
-                alt="Phuket Charter Team"
-                className="w-14 h-14 sm:w-16 sm:h-16 object-contain"
-              />
+              <picture>
+                <source srcSet="/images/logo.webp?v=2" type="image/webp" />
+                <img
+                  src="/images/logo.png?v=2"
+                  alt="Phuket Charter Team"
+                  className="w-14 h-14 sm:w-16 sm:h-16 object-contain"
+                />
+              </picture>
               <h3 className="text-xl sm:text-2xl font-bold">Phuket Charter</h3>
             </div>
             <p className="text-sm sm:text-base text-gray-400">

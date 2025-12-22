@@ -8,13 +8,16 @@ const Hero = () => {
     <section className="relative h-screen overflow-hidden">
       {/* Фоновое изображение */}
       <div className="absolute inset-0">
-        <img
-          src="/images/hero/catamaran-hero-bg.jpg"
-          alt="Catamaran on Phuket"
-          className="w-full h-full object-cover"
-          fetchPriority="high"
-          loading="eager"
-        />
+        <picture>
+          <source srcSet="/images/hero/catamaran-hero-bg.webp" type="image/webp" />
+          <img
+            src="/images/hero/catamaran-hero-bg.jpg"
+            alt="Catamaran on Phuket"
+            className="w-full h-full object-cover"
+            fetchPriority="high"
+            loading="eager"
+          />
+        </picture>
         
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-cyan-800/30 to-teal-700/40"></div>
         <div className="absolute inset-0 bg-black/30"></div>

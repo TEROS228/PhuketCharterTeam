@@ -94,17 +94,20 @@ const CatamaranCard = ({ catamaran }: CatamaranCardProps) => {
     <>
       <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden h-full flex flex-col">
         <div className="relative h-64 sm:h-72 md:h-80">
-          <img
-            src={catamaran.image}
-            alt={catamaran.name}
-            className="w-full h-full object-cover"
-            loading="lazy"
-            onError={(e) => {
-              e.currentTarget.style.display = 'none';
-              e.currentTarget.nextElementSibling?.classList.remove('hidden');
-            }}
-          />
-          
+          <picture>
+            <source srcSet={catamaran.image.replace('.jpg', '.webp')} type="image/webp" />
+            <img
+              src={catamaran.image}
+              alt={catamaran.name}
+              className="w-full h-full object-cover"
+              loading="lazy"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+                e.currentTarget.parentElement?.nextElementSibling?.classList.remove('hidden');
+              }}
+            />
+          </picture>
+
           <div className="hidden absolute inset-0 bg-gradient-to-br from-blue-100 to-blue-200"></div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
           

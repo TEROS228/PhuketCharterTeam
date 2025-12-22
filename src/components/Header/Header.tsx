@@ -103,11 +103,14 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center space-x-2 sm:space-x-3 group cursor-pointer flex-shrink-0" onClick={goToHome}>
             <div className="relative flex-shrink-0">
-              <img
-                src="/images/logo.png?v=2"
-                alt="Phuket Charter Team"
-                className="w-12 h-12 sm:w-16 sm:h-16 object-contain group-hover:scale-110 transition-all duration-300"
-              />
+              <picture>
+                <source srcSet="/images/logo.webp?v=2" type="image/webp" />
+                <img
+                  src="/images/logo.png?v=2"
+                  alt="Phuket Charter Team"
+                  className="w-12 h-12 sm:w-16 sm:h-16 object-contain group-hover:scale-110 transition-all duration-300"
+                />
+              </picture>
             </div>
             <div className="flex flex-col justify-center">
               <span className="text-base sm:text-xl lg:text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent leading-tight">
