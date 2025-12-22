@@ -14,7 +14,7 @@ async function optimizeImage(inputPath, outputPath, width = null) {
     }
 
     await pipeline
-      .webp({ quality: 85 })
+      .webp({ quality: 75, effort: 6 })
       .toFile(outputPath);
 
     const inputStats = await fs.stat(inputPath);
@@ -30,11 +30,11 @@ async function optimizeImage(inputPath, outputPath, width = null) {
 async function main() {
   console.log('🖼️  Optimizing images to WebP...\n');
 
-  // Hero image - критическое для LCP
+  // Hero image - критическое для LCP (агрессивная оптимизация)
   await optimizeImage(
     'public/images/hero/catamaran-hero-bg.jpg',
     'public/images/hero/catamaran-hero-bg.webp',
-    1920 // Максимальная ширина для desktop
+    1600 // Оптимальная ширина для мобильных и desktop
   );
 
   // Fleet images

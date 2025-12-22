@@ -48,8 +48,8 @@
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 
     <!-- Preload critical assets -->
-    <link rel="preload" href="/images/logo.png" as="image">
-    <link rel="preload" href="/images/hero/catamaran-hero-bg.jpg" as="image" fetchpriority="high">
+    <link rel="preload" href="/images/logo.webp" as="image" type="image/webp">
+    <link rel="preload" href="/images/hero/catamaran-hero-bg.webp" as="image" type="image/webp" fetchpriority="high">
 
     <!-- Critical CSS -->
     <style>
@@ -57,17 +57,6 @@
       #root { min-height: 100vh; }
       .hero-skeleton { background: linear-gradient(to bottom, #0ea5e9, #06b6d4); min-height: 100vh; }
     </style>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16788812201"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'AW-16788812201');
-      gtag('config', 'AW-7098454688');
-    </script>
   <script type="module" crossorigin src="/assets/index-64dc5eee.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/vendor-63000f33.js">
   <link rel="stylesheet" href="/assets/index-12e2334b.css">
@@ -80,5 +69,23 @@
 
     <div id="root"></div>
     
+
+    <!-- Google tag (gtag.js) - Deferred -->
+    <script>
+      window.addEventListener('load', function() {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=AW-16788812201';
+        document.head.appendChild(script);
+
+        script.onload = function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'AW-16788812201');
+          gtag('config', 'AW-7098454688');
+        };
+      });
+    </script>
 </body>
 </html>
