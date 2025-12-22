@@ -12,7 +12,7 @@ const Footer = () => {
               <img
                 src="/images/logo.png?v=2"
                 alt="Phuket Charter Team"
-                className="w-12 h-12 sm:w-14 sm:h-14 object-contain"
+                className="w-14 h-14 sm:w-16 sm:h-16 object-contain"
               />
               <h3 className="text-xl sm:text-2xl font-bold">Phuket Charter</h3>
             </div>

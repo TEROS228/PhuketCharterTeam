@@ -106,7 +106,7 @@ const Header = () => {
               <img
                 src="/images/logo.png?v=2"
                 alt="Phuket Charter Team"
-                className="w-10 h-10 sm:w-12 sm:h-12 object-contain group-hover:scale-110 transition-all duration-300"
+                className="w-12 h-12 sm:w-16 sm:h-16 object-contain group-hover:scale-110 transition-all duration-300"
               />
             </div>
             <div className="flex flex-col justify-center">
