@@ -20,15 +20,27 @@ export const CurrencyProvider = ({ children }) => {
   useEffect(() => {
     const fetchExchangeRate = async () => {
       try {
-        const response = await fetch('https://api.exchangerate-api.com/v4/latest/THB');
+        // Используем fawazahmed0/currency-api - самый точный курс (8 знаков после запятой)
+        const response = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/thb.json');
         const data = await response.json();
-        if (data.rates && data.rates.RUB) {
-          setExchangeRate(data.rates.RUB);
+
+        if (data.thb && data.thb.rub) {
+          const rate = data.thb.rub;
+          console.log('Exchange rate from API: 1 THB =', rate, 'RUB');
+          console.log('Example: 40000 THB =', Math.floor(40000 * rate), 'RUB');
+          setExchangeRate(rate);
+        } else {
+          // Fallback к open.er-api.com (6 знаков)
+          const fallbackResponse = await fetch('https://open.er-api.com/v6/latest/THB');
+          const fallbackData = await fallbackResponse.json();
+          if (fallbackData.rates && fallbackData.rates.RUB) {
+            setExchangeRate(fallbackData.rates.RUB);
+          }
         }
       } catch (error) {
         console.error('Failed to fetch exchange rate:', error);
-        // Используем фоллбэк курс
-        setExchangeRate(2.5);
+        // Используем точный фоллбэк курс
+        setExchangeRate(2.563);
       }
     };
 
