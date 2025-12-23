@@ -100,8 +100,8 @@ const Header = () => {
           : 'bg-white/90 backdrop-blur-sm shadow-lg py-3 sm:py-4'
       }`}
     >
-      <div className="container mx-auto px-4 sm:px-6">
-        <div className="flex justify-between items-center min-h-[48px]">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
+        <div className="flex justify-between items-center min-h-[48px] gap-4 xl:gap-8">
           {/* Logo */}
           <div className="flex items-center space-x-2 sm:space-x-3 group cursor-pointer flex-shrink-0" onClick={goToHome}>
             <div className="relative flex-shrink-0">
@@ -123,12 +123,12 @@ const Header = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-6">
+          <nav className="hidden lg:flex items-center space-x-3 xl:space-x-6">
             {navigationItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => handleNavigation(item.id)}
-                className="group relative px-4 py-2 text-gray-600 hover:text-blue-600 font-medium transition-all duration-300 rounded-xl hover:bg-blue-50/50"
+                className="group relative px-2 xl:px-4 py-2 text-gray-600 hover:text-blue-600 font-medium transition-all duration-300 rounded-xl hover:bg-blue-50/50 text-sm xl:text-base"
               >
                 <span className="flex items-center gap-2">
                   <span className="group-hover:scale-110 group-hover:text-blue-500 transition-all duration-300">
@@ -142,12 +142,12 @@ const Header = () => {
           </nav>
 
           {/* Action Buttons */}
-          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-            {/* Currency Selector */}
-            <div className="flex items-center gap-1 bg-gray-100 rounded-full p-1">
+          <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+            {/* Currency Selector - более компактный */}
+            <div className="flex items-center gap-0.5 bg-gray-100 rounded-full p-0.5">
               <button
                 onClick={() => toggleCurrency('THB')}
-                className={`px-2 sm:px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${
+                className={`px-2 py-1 rounded-full text-xs font-medium transition-all duration-300 ${
                   currency === 'THB'
                     ? 'bg-blue-600 text-white shadow-md'
                     : 'text-gray-600 hover:text-gray-900'
@@ -157,7 +157,7 @@ const Header = () => {
               </button>
               <button
                 onClick={() => toggleCurrency('RUB')}
-                className={`px-2 sm:px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${
+                className={`px-2 py-1 rounded-full text-xs font-medium transition-all duration-300 ${
                   currency === 'RUB'
                     ? 'bg-blue-600 text-white shadow-md'
                     : 'text-gray-600 hover:text-gray-900'
@@ -181,10 +181,10 @@ const Header = () => {
               <span className="hidden lg:inline text-sm font-medium whitespace-nowrap">WhatsApp</span>
             </a>
 
-            {/* Главная кнопка - компактная на мобильных */}
+            {/* Главная кнопка - скрыта на маленьких экранах */}
             <button
               onClick={() => handleNavigation('fleet')}
-              className="hidden sm:flex relative group bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 sm:px-4 lg:px-6 py-2.5 rounded-full font-semibold text-xs lg:text-sm shadow-lg hover:shadow-xl hover:shadow-orange-500/25 transform hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+              className="hidden md:flex relative group bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 lg:px-5 py-2 rounded-full font-semibold text-xs lg:text-sm shadow-lg hover:shadow-xl hover:shadow-orange-500/25 transform hover:-translate-y-1 transition-all duration-300 overflow-hidden"
             >
               <span className="relative z-10 flex items-center gap-1.5 lg:gap-2 whitespace-nowrap">
                 <svg className="w-3.5 h-3.5 lg:w-4 lg:h-4 flex-shrink-0 group-hover:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">

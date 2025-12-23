@@ -1,19 +1,20 @@
 import React from 'react';
+import Price from './Price';
 
 const PriceCalendar = () => {
 const months = [
- { month: 'Январь', price: '50,000', available: true },
- { month: 'Февраль', price: '45,000', available: true },
- { month: 'Март', price: '45,000', available: true },
- { month: 'Апрель', price: '40,000', available: true },
- { month: 'Май', price: '40,000', available: true },
- { month: 'Июнь', price: 'Не работает', available: false },
- { month: 'Июль', price: 'Не работает', available: false },
- { month: 'Август', price: 'Не работает', available: false },
- { month: 'Сентябрь', price: 'Не работает', available: false },
- { month: 'Октябрь', price: '40,000', available: true },
- { month: 'Ноябрь', price: '40,000', available: true },
- { month: 'Декабрь', price: '45,000', available: true }
+ { month: 'Январь', price: 50000, available: true },
+ { month: 'Февраль', price: 45000, available: true },
+ { month: 'Март', price: 45000, available: true },
+ { month: 'Апрель', price: 40000, available: true },
+ { month: 'Май', price: 40000, available: true },
+ { month: 'Июнь', price: null, available: false },
+ { month: 'Июль', price: null, available: false },
+ { month: 'Август', price: null, available: false },
+ { month: 'Сентябрь', price: null, available: false },
+ { month: 'Октябрь', price: 40000, available: true },
+ { month: 'Ноябрь', price: 40000, available: true },
+ { month: 'Декабрь', price: 45000, available: true }
  ];
 
   return (
@@ -49,7 +50,7 @@ const months = [
                 {item.available ? (
                   <>
                     <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-2">
-                      {item.price} ฿
+                      <Price amount={item.price} />
                     </div>
                     <p className="text-sm text-gray-500">с 9:00 до 17:00</p>
                   </>
