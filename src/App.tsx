@@ -11,14 +11,7 @@ import PriceCalculatorPage from './components/pages/PriceCalculatorPage';
 import PrivacyPolicyPage from './components/pages/PrivacyPolicyPage';
 import FoodMenu from './components/FoodMenu';
 import SuccessPage from './components/SuccessPage';
-import Fleet from './components/Fleet';
 import { useSmoothScroll } from './hooks/useSmoothScroll';
-
-const FleetPage = () => (
-  <div className="pt-16">
-    <Fleet />
-  </div>
-);
 
 const BookingPage = () => (
   <div className="min-h-screen flex items-center justify-center">
@@ -33,7 +26,17 @@ function ScrollToTop() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // Если это страница /fleet, скроллим к секции fleet
+    if (pathname === '/fleet') {
+      setTimeout(() => {
+        const element = document.getElementById('fleet');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      window.scrollTo(0, 0);
+    }
 
     // Отправляем событие просмотра страницы в Google Tag Manager
     if (window.dataLayer) {
@@ -61,7 +64,7 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/fleet" element={<FleetPage />} />
+          <Route path="/fleet" element={<HomePage />} />
           <Route path="/routes" element={<RoutesPage />} />
           <Route path="/route/:id" element={<RouteDetailPage />} />
           <Route path="/calculator" element={<PriceCalculatorPage />} />
