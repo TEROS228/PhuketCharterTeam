@@ -16,6 +16,14 @@ const SuccessPage = () => {
       sessionStorage.removeItem('formSubmitted');
       // Прокрутка наверх при загрузке
       window.scrollTo(0, 0);
+
+      // Отправляем событие конверсии в GTM
+      if (window.dataLayer) {
+        window.dataLayer.push({
+          event: 'conversion',
+          conversion_type: 'form_submit'
+        });
+      }
     } else {
       // Если форма не была отправлена, редиректим на главную
       navigate('/');
