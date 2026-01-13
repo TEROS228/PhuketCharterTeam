@@ -26,12 +26,22 @@
     </script>
     <!-- End Single Page Apps GitHub Pages -->
 
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-WCF72HQJ');</script>
+    <!-- Google Tag Manager - Deferred after page interactive -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function loadGTM() {
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-WCF72HQJ');
+      }
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(loadGTM, { timeout: 3000 });
+      } else {
+        setTimeout(loadGTM, 3000);
+      }
+    </script>
     <!-- End Google Tag Manager -->
 
     <meta charset="UTF-8">
@@ -74,7 +84,7 @@
           type="image/webp"
           media="(min-width: 1025px)"
           fetchpriority="high">
-    <link rel="preload" href="data:text/jsx;base64,aW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0JzsKaW1wb3J0IFJlYWN0RE9NIGZyb20gJ3JlYWN0LWRvbS9jbGllbnQnOwppbXBvcnQgeyBCcm93c2VyUm91dGVyIH0gZnJvbSAncmVhY3Qtcm91dGVyLWRvbSc7CmltcG9ydCBBcHAgZnJvbSAnLi9BcHAnOwppbXBvcnQgJy4vaW5kZXguY3NzJzsKaW1wb3J0IHsgaW5pdEFuYWx5dGljcyB9IGZyb20gJy4vdXRpbHMvYW5hbHl0aWNzJzsKaW1wb3J0IHsgQ3VycmVuY3lQcm92aWRlciB9IGZyb20gJy4vY29udGV4dC9DdXJyZW5jeUNvbnRleHQnOwoKLy8g0JjQvdC40YbQuNCw0LvQuNC30LjRgNGD0LXQvCDQvtGC0YHQu9C10LbQuNCy0LDQvdC40LUg0LDQvdCw0LvQuNGC0LjQutC4INC/0L7RgdC70LUg0LfQsNCz0YDRg9C30LrQuCBET00Kd2luZG93LmFkZEV2ZW50TGlzdGVuZXIoJ0RPTUNvbnRlbnRMb2FkZWQnLCAoKSA9PiB7CiAgaW5pdEFuYWx5dGljcygpOwp9KTsKClJlYWN0RE9NLmNyZWF0ZVJvb3QoZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3Jvb3QnKSkucmVuZGVyKAogIDxSZWFjdC5TdHJpY3RNb2RlPgogICAgPEJyb3dzZXJSb3V0ZXI+CiAgICAgIDxDdXJyZW5jeVByb3ZpZGVyPgogICAgICAgIDxBcHAgLz4KICAgICAgPC9DdXJyZW5jeVByb3ZpZGVyPgogICAgPC9Ccm93c2VyUm91dGVyPgogIDwvUmVhY3QuU3RyaWN0TW9kZT4KKTs=" as="script">
+    <link rel="preload" href="data:text/jsx;base64,aW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0JzsKaW1wb3J0IFJlYWN0RE9NIGZyb20gJ3JlYWN0LWRvbS9jbGllbnQnOwppbXBvcnQgeyBCcm93c2VyUm91dGVyIH0gZnJvbSAncmVhY3Qtcm91dGVyLWRvbSc7CmltcG9ydCBBcHAgZnJvbSAnLi9BcHAnOwppbXBvcnQgJy4vaW5kZXguY3NzJzsKaW1wb3J0IHsgaW5pdEFuYWx5dGljcyB9IGZyb20gJy4vdXRpbHMvYW5hbHl0aWNzJzsKaW1wb3J0IHsgQ3VycmVuY3lQcm92aWRlciB9IGZyb20gJy4vY29udGV4dC9DdXJyZW5jeUNvbnRleHQnOwoKLy8g0J7RgtC70L7QttC10L3QvdCw0Y8g0LjQvdC40YbQuNCw0LvQuNC30LDRhtC40Y8g0LDQvdCw0LvQuNGC0LjQutC4CmlmICgncmVxdWVzdElkbGVDYWxsYmFjaycgaW4gd2luZG93KSB7CiAgcmVxdWVzdElkbGVDYWxsYmFjaygoKSA9PiBpbml0QW5hbHl0aWNzKCksIHsgdGltZW91dDogMjAwMCB9KTsKfSBlbHNlIHsKICBzZXRUaW1lb3V0KCgpID0+IGluaXRBbmFseXRpY3MoKSwgMjAwMCk7Cn0KCi8vINCg0LXQvdC00LXRgCDQsdC10LcgU3RyaWN0TW9kZSDQtNC70Y8gcHJvZHVjdGlvbgpjb25zdCByb290ID0gUmVhY3RET00uY3JlYXRlUm9vdChkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgncm9vdCcpKTsKcm9vdC5yZW5kZXIoCiAgPEJyb3dzZXJSb3V0ZXI+CiAgICA8Q3VycmVuY3lQcm92aWRlcj4KICAgICAgPEFwcCAvPgogICAgPC9DdXJyZW5jeVByb3ZpZGVyPgogIDwvQnJvd3NlclJvdXRlcj4KKTs=" as="script">
 
     <!-- Critical CSS -->
     <style>
@@ -101,10 +111,10 @@
         background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5));
       }
     </style>
-  <script type="module" crossorigin src="/assets/index-3baa093e.js"></script>
+  <script type="module" crossorigin src="/assets/index-a51eca8d.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/vendor-libs-909f1134.js">
-  <link rel="modulepreload" crossorigin href="/assets/vendor-react-e4206e5a.js">
-  <link rel="stylesheet" href="/assets/index-f99c25c5.css">
+  <link rel="modulepreload" crossorigin href="/assets/vendor-react-1ee29749.js">
+  <link rel="stylesheet" href="/assets/index-523cb8a5.css">
 </head>
 <body>
     <!-- Google Tag Manager (noscript) -->
