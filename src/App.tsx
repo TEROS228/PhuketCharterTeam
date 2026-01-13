@@ -11,16 +11,8 @@ import PriceCalculatorPage from './components/pages/PriceCalculatorPage';
 import PrivacyPolicyPage from './components/pages/PrivacyPolicyPage';
 import FoodMenu from './components/FoodMenu';
 import SuccessPage from './components/SuccessPage';
+import Fleet from './components/Fleet';
 import { useSmoothScroll } from './hooks/useSmoothScroll';
-
-const FleetPage = () => (
-  <div className="min-h-screen flex items-center justify-center">
-    <div className="text-center">
-      <h1 className="text-4xl font-bold mb-4">Наш флот</h1>
-      <p className="text-xl text-gray-600">Страница с катамаранами скоро будет готова!</p>
-    </div>
-  </div>
-);
 
 const BookingPage = () => (
   <div className="min-h-screen flex items-center justify-center">
@@ -63,7 +55,7 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/fleet" element={<FleetPage />} />
+          <Route path="/fleet" element={<Fleet />} />
           <Route path="/routes" element={<RoutesPage />} />
           <Route path="/route/:id" element={<RouteDetailPage />} />
           <Route path="/calculator" element={<PriceCalculatorPage />} />
