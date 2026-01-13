@@ -14,6 +14,12 @@ import SuccessPage from './components/SuccessPage';
 import Fleet from './components/Fleet';
 import { useSmoothScroll } from './hooks/useSmoothScroll';
 
+const FleetPage = () => (
+  <div className="pt-16">
+    <Fleet />
+  </div>
+);
+
 const BookingPage = () => (
   <div className="min-h-screen flex items-center justify-center">
     <div className="text-center">
@@ -55,7 +61,7 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/fleet" element={<Fleet />} />
+          <Route path="/fleet" element={<FleetPage />} />
           <Route path="/routes" element={<RoutesPage />} />
           <Route path="/route/:id" element={<RouteDetailPage />} />
           <Route path="/calculator" element={<PriceCalculatorPage />} />
