@@ -51,9 +51,9 @@
     <link rel="canonical" href="https://phuketcharterteam.com/">
 
     <!-- Preconnect to external domains -->
-    <link rel="preconnect" href="https://www.googletagmanager.com">
-    <link rel="preconnect" href="https://www.google-analytics.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
 
     <!-- Preload critical assets -->
     <link rel="preload" href="/images/hero/catamaran-hero-bg.webp" as="image" type="image/webp" fetchpriority="high">
@@ -61,13 +61,33 @@
 
     <!-- Critical CSS -->
     <style>
-      body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-display: swap;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
       #root { min-height: 100vh; }
-      .hero-skeleton { background: linear-gradient(to bottom, #0ea5e9, #06b6d4); min-height: 100vh; }
+      /* Hero skeleton для быстрого FCP */
+      .hero-skeleton {
+        background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+        min-height: 100vh;
+        position: relative;
+      }
+      /* Предзагрузка для hero */
+      .hero-skeleton::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5));
+      }
     </style>
-  <script type="module" crossorigin src="/assets/index-56a977da.js"></script>
-  <link rel="modulepreload" crossorigin href="/assets/vendor-5f8ff32e.js">
-  <link rel="stylesheet" href="/assets/index-2e120719.css">
+  <script type="module" crossorigin src="/assets/index-fed3c5e4.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/vendor-libs-909f1134.js">
+  <link rel="modulepreload" crossorigin href="/assets/vendor-react-e4206e5a.js">
+  <link rel="stylesheet" href="/assets/index-bf8ac271.css">
 </head>
 <body>
     <!-- Google Tag Manager (noscript) -->
