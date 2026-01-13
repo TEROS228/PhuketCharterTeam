@@ -30,10 +30,10 @@ const Fleet = () => {
       <div className="container mx-auto px-4 sm:px-6">
         <div className="text-center mb-8 sm:mb-12 md:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
-            Наш флот
+            Катамараны для аренды на Пхукете
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-4">
-            Современные катамараны, оснащенные всем необходимым для идеального отдыха
+            Luxury катамараны Astrea 42 и Lucia 40 для аренды в Таиланде. Комфорт и безопасность для вашего путешествия
           </p>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 max-w-6xl mx-auto">
