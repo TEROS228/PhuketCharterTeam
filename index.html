@@ -56,7 +56,24 @@
     <link rel="dns-prefetch" href="https://www.google-analytics.com">
 
     <!-- Preload critical assets -->
-    <link rel="preload" href="/images/hero/catamaran-hero-bg.webp" as="image" type="image/webp" fetchpriority="high">
+    <link rel="preload"
+          href="/images/hero/catamaran-hero-bg-mobile.webp"
+          as="image"
+          type="image/webp"
+          media="(max-width: 640px)"
+          fetchpriority="high">
+    <link rel="preload"
+          href="/images/hero/catamaran-hero-bg-tablet.webp"
+          as="image"
+          type="image/webp"
+          media="(min-width: 641px) and (max-width: 1024px)"
+          fetchpriority="high">
+    <link rel="preload"
+          href="/images/hero/catamaran-hero-bg.webp"
+          as="image"
+          type="image/webp"
+          media="(min-width: 1025px)"
+          fetchpriority="high">
     <link rel="preload" href="data:text/jsx;base64,aW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0JzsKaW1wb3J0IFJlYWN0RE9NIGZyb20gJ3JlYWN0LWRvbS9jbGllbnQnOwppbXBvcnQgeyBCcm93c2VyUm91dGVyIH0gZnJvbSAncmVhY3Qtcm91dGVyLWRvbSc7CmltcG9ydCBBcHAgZnJvbSAnLi9BcHAnOwppbXBvcnQgJy4vaW5kZXguY3NzJzsKaW1wb3J0IHsgaW5pdEFuYWx5dGljcyB9IGZyb20gJy4vdXRpbHMvYW5hbHl0aWNzJzsKaW1wb3J0IHsgQ3VycmVuY3lQcm92aWRlciB9IGZyb20gJy4vY29udGV4dC9DdXJyZW5jeUNvbnRleHQnOwoKLy8g0JjQvdC40YbQuNCw0LvQuNC30LjRgNGD0LXQvCDQvtGC0YHQu9C10LbQuNCy0LDQvdC40LUg0LDQvdCw0LvQuNGC0LjQutC4INC/0L7RgdC70LUg0LfQsNCz0YDRg9C30LrQuCBET00Kd2luZG93LmFkZEV2ZW50TGlzdGVuZXIoJ0RPTUNvbnRlbnRMb2FkZWQnLCAoKSA9PiB7CiAgaW5pdEFuYWx5dGljcygpOwp9KTsKClJlYWN0RE9NLmNyZWF0ZVJvb3QoZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3Jvb3QnKSkucmVuZGVyKAogIDxSZWFjdC5TdHJpY3RNb2RlPgogICAgPEJyb3dzZXJSb3V0ZXI+CiAgICAgIDxDdXJyZW5jeVByb3ZpZGVyPgogICAgICAgIDxBcHAgLz4KICAgICAgPC9DdXJyZW5jeVByb3ZpZGVyPgogICAgPC9Ccm93c2VyUm91dGVyPgogIDwvUmVhY3QuU3RyaWN0TW9kZT4KKTs=" as="script">
 
     <!-- Critical CSS -->
@@ -84,7 +101,7 @@
         background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5));
       }
     </style>
-  <script type="module" crossorigin src="/assets/index-fed3c5e4.js"></script>
+  <script type="module" crossorigin src="/assets/index-afd0517b.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/vendor-libs-909f1134.js">
   <link rel="modulepreload" crossorigin href="/assets/vendor-react-e4206e5a.js">
   <link rel="stylesheet" href="/assets/index-bf8ac271.css">
