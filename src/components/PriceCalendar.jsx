@@ -22,10 +22,10 @@ const months = [
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Цены на аренду катамарана на Пхукете
+            Цены на аренду катамарана
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Аренда катамарана в Таиланде от 40,000 THB. Сезонные цены и специальные предложения на катамаран аренду
+            От 40,000 THB в день. Сезонные цены и специальные предложения
           </p>
         </div>
 

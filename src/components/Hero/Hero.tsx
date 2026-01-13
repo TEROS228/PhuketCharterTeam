@@ -47,12 +47,12 @@ const Hero = () => {
               </span>
               <br />
               <span className="inline-block bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-                на Пхукете
+                Пхукет
               </span>
             </h1>
 
             <p className="text-sm sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 opacity-90 max-w-3xl mx-auto">
-              Катамаран аренда в Таиланде от 40,000 THB. Luxury катамараны для незабываемых путешествий по Андаманскому морю
+              Катамаран аренда от 40,000 THB. Luxury катамараны для незабываемых путешествий по Андаманскому морю
             </p>
           </div>
 
