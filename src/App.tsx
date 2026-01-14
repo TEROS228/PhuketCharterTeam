@@ -11,6 +11,7 @@ import PriceCalculatorPage from './components/pages/PriceCalculatorPage';
 import PrivacyPolicyPage from './components/pages/PrivacyPolicyPage';
 import FoodMenu from './components/FoodMenu';
 import SuccessPage from './components/SuccessPage';
+import CurrencySwitcher from './components/CurrencySwitcher/CurrencySwitcher';
 import { useSmoothScroll } from './hooks/useSmoothScroll';
 
 const BookingPage = () => (
@@ -61,6 +62,7 @@ function App() {
     <div className="App">
       <ScrollToTop />
       <Header />
+      <CurrencySwitcher />
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />

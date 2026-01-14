@@ -2,14 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './Header.css';
 import { trackWhatsAppClick } from '../../utils/analytics';
-import { useCurrency } from '../../context/CurrencyContext';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const { currency, toggleCurrency } = useCurrency();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -143,30 +141,6 @@ const Header = () => {
 
           {/* Action Buttons */}
           <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
-            {/* Currency Selector - более компактный */}
-            <div className="flex items-center gap-0.5 bg-gray-100 rounded-full p-0.5">
-              <button
-                onClick={() => toggleCurrency('THB')}
-                className={`px-2 py-1 rounded-full text-xs font-medium transition-all duration-300 ${
-                  currency === 'THB'
-                    ? 'bg-blue-600 text-white shadow-md'
-                    : 'text-gray-600 hover:text-gray-900'
-                }`}
-              >
-                ฿
-              </button>
-              <button
-                onClick={() => toggleCurrency('RUB')}
-                className={`px-2 py-1 rounded-full text-xs font-medium transition-all duration-300 ${
-                  currency === 'RUB'
-                    ? 'bg-blue-600 text-white shadow-md'
-                    : 'text-gray-600 hover:text-gray-900'
-                }`}
-              >
-                ₽
-              </button>
-            </div>
-
             {/* WhatsApp кнопка - скрыта на мобильных, видна на планшетах+ */}
             <a
               href="https://wa.me/79147953955"
