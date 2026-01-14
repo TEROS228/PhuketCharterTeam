@@ -98,7 +98,7 @@ const Lucia40Page = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 pt-20 sm:pt-24">
       {/* Breadcrumb */}
       <div className="bg-white border-b shadow-sm">
         <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
