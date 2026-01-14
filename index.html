@@ -99,7 +99,8 @@
 
     <!-- Preload critical assets -->
     <link rel="preload" href="/images/logo.webp" as="image" type="image/webp">
-    <link rel="preload" href="/images/hero/catamaran-hero-bg.webp" as="image" type="image/webp" fetchpriority="high">
+    <link rel="preload" href="/images/heromobile.webp" as="image" type="image/webp" media="(max-width: 640px)" fetchpriority="high">
+    <link rel="preload" href="/images/hero/catamaran-hero-bg.webp" as="image" type="image/webp" media="(min-width: 641px)" fetchpriority="high">
 
     <!-- Critical CSS -->
     <style>
