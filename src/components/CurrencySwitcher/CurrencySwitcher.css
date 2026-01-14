@@ -1,7 +1,7 @@
 /* CURRENCY SWITCHER */
 .currency-card {
   position: fixed;
-  top: 90px;
+  top: 100px;
   right: 20px;
   z-index: 1000;
   width: 280px;
@@ -139,7 +139,7 @@
 /* MINIMIZED STATE */
 .currency-minimized {
   position: fixed;
-  top: 90px;
+  top: 100px;
   right: 20px;
   z-index: 1000;
   width: 50px;
@@ -171,7 +171,7 @@
 /* RESTORE BUTTON */
 .currency-restore-btn {
   position: fixed;
-  top: 90px;
+  top: 100px;
   right: 20px;
   z-index: 1000;
   width: 44px;
@@ -208,7 +208,7 @@
 /* MOBILE RESPONSIVE */
 @media (max-width: 640px) {
   .currency-card {
-    top: 70px;
+    top: 80px;
     right: 10px;
     width: 260px;
     padding: 16px;
@@ -216,7 +216,7 @@
 
   .currency-minimized,
   .currency-restore-btn {
-    top: 70px;
+    top: 80px;
     right: 10px;
     width: 44px;
     height: 44px;

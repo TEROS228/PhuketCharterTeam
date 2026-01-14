@@ -94,12 +94,12 @@ const Header = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-xl py-3'
-          : 'bg-white/90 backdrop-blur-sm shadow-lg py-3 sm:py-4'
+          ? 'bg-white/95 backdrop-blur-md shadow-xl py-4'
+          : 'bg-white/90 backdrop-blur-sm shadow-lg py-5 sm:py-6'
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
-        <div className="flex justify-between items-center min-h-[48px] gap-4 xl:gap-8">
+        <div className="flex justify-between items-center min-h-[60px] gap-4 xl:gap-8">
           {/* Logo */}
           <div className="flex items-center space-x-2 sm:space-x-3 group cursor-pointer flex-shrink-0" onClick={goToHome}>
             <div className="relative flex-shrink-0">
