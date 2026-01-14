@@ -26,14 +26,6 @@
     </script>
     <!-- End Single Page Apps GitHub Pages -->
 
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-WCF72HQJ');</script>
-    <!-- End Google Tag Manager -->
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Аренда катамарана на Пхукете - Phuket Charter Team | Катамаран Таиланд</title>
@@ -92,24 +84,22 @@
     }
     </script>
 
-    <!-- Preconnect to external domains -->
-    <link rel="preconnect" href="https://www.googletagmanager.com">
-    <link rel="preconnect" href="https://www.google-analytics.com">
-    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
-
     <!-- Preload critical assets -->
     <link rel="preload" href="/images/logo.webp" as="image" type="image/webp">
-    <link rel="preload" href="/images/hero/catamaran-hero-bg.webp" as="image" type="image/webp" fetchpriority="high">
+    <link rel="preload" href="/images/heromobile.webp" as="image" type="image/webp" media="(max-width: 640px)" fetchpriority="high">
+    <link rel="preload" href="/images/hero/catamaran-hero-bg.webp" as="image" type="image/webp" media="(min-width: 641px)" fetchpriority="high">
 
     <!-- Critical CSS -->
     <style>
-      body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
-      #root { min-height: 100vh; }
-      .hero-skeleton { background: linear-gradient(to bottom, #0ea5e9, #06b6d4); min-height: 100vh; }
+      *{box-sizing:border-box;margin:0;padding:0}
+      body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+      #root{min-height:100vh}
+      header{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);box-shadow:0 1px 3px rgba(0,0,0,.1);height:72px}
+      img{max-width:100%;height:auto}
     </style>
-  <script type="module" crossorigin src="/assets/index-aa385c0e.js"></script>
+  <script type="module" crossorigin src="/assets/index-2b20d5a4.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/vendor-63000f33.js">
-  <link rel="stylesheet" href="/assets/index-2e120719.css">
+  <link rel="stylesheet" href="/assets/index-1dfeb342.css">
 </head>
 <body>
     <!-- Google Tag Manager (noscript) -->
@@ -119,6 +109,28 @@
 
     <div id="root"></div>
     
+
+    <!-- Google Tag Manager - Deferred -->
+    <script>
+      // Отложенная загрузка GTM
+      window.dataLayer = window.dataLayer || [];
+
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(function() {
+          loadGTM();
+        }, { timeout: 2000 });
+      } else {
+        setTimeout(loadGTM, 1500);
+      }
+
+      function loadGTM() {
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-WCF72HQJ');
+      }
+    </script>
 
     <!-- Google tag (gtag.js) - Deferred -->
     <script>
