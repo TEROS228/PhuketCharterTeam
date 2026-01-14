@@ -1,18 +1,22 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import Hero from "./Hero/Hero";
 import PriceCalendar from './PriceCalendar';
-import BookingProcess from './BookingProcess';
-import Fleet from './Fleet';
-import FoodMenu from './FoodMenu';
+
+// Lazy load компонентов, которые не видны сразу
+const BookingProcess = lazy(() => import('./BookingProcess'));
+const Fleet = lazy(() => import('./Fleet'));
+const FoodMenu = lazy(() => import('./FoodMenu'));
 
 const HomePage = () => {
   return (
     <main>
       <Hero />
       <PriceCalendar />
-      <BookingProcess />
-      <Fleet />
-      <FoodMenu />
+      <Suspense fallback={<div className="min-h-screen" />}>
+        <BookingProcess />
+        <Fleet />
+        <FoodMenu />
+      </Suspense>
     </main>
   );
 };
