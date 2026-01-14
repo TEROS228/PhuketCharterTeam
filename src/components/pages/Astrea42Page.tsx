@@ -112,7 +112,7 @@ const Astrea42Page = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Navigation breadcrumb */}
-      <div className="bg-white border-b shadow-sm mt-22 sm:mt-26">
+      <div className="bg-white border-b shadow-sm mt-24 sm:mt-28">
         <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center text-xs sm:text-sm text-gray-600 overflow-x-auto">
