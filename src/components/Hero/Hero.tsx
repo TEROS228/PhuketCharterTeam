@@ -9,6 +9,7 @@ const Hero = () => {
       {/* Фоновое изображение */}
       <div className="absolute inset-0">
         <picture>
+          <source srcSet="/images/heromobile.jpg" media="(max-width: 640px)" />
           <source srcSet="/images/hero/catamaran-hero-bg.webp" type="image/webp" />
           <img
             src="/images/hero/catamaran-hero-bg.jpg"
