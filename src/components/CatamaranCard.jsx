@@ -19,6 +19,8 @@ const CatamaranCard = ({ catamaran }) => {
         return '/catamaran/astrea-42';
       case 2:
         return '/catamaran/lucia-40';
+      case 3:
+        return '/catamaran/lamer-56';
       default:
         return '/fleet';
     }
