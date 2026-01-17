@@ -22,16 +22,6 @@ const Fleet = () => {
       length: '40 футов',
       image: '/images/catamaran2.jpg',
       features: ['4 каюты', 'Панорамные окна', 'Солнечная палуба']
-    },
-    {
-      id: 3,
-      name: 'Lamer 56',
-      description: 'Премиум катамаран Akula Catamarans для больших групп',
-      price: 'От 50,000',
-      capacity: 20,
-      length: '56 футов',
-      image: '/images/Lamer56/1.jpeg',
-      features: ['5 кают', 'Просторная палуба', 'Премиум класс', 'До 20 гостей']
     }
   ];
 
@@ -43,10 +33,10 @@ const Fleet = () => {
             Наш флот
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-4">
-            Luxury катамараны Astrea 42, Lucia 40 и Lamer 56. Комфорт и безопасность для вашего путешествия
+            Luxury катамараны Astrea 42 и Lucia 40. Комфорт и безопасность для вашего путешествия
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 max-w-6xl mx-auto">
           {catamarans.map(catamaran => (
             <CatamaranCard key={catamaran.id} catamaran={catamaran} />
           ))}
