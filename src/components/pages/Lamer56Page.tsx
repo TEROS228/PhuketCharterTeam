@@ -16,17 +16,31 @@ const Lamer56Page = () => {
   const imageLabels = Array.from({ length: 26 }, (_, i) => `Фото ${i + 1}`);
 
   const specifications = [
-    { label: 'Длина', value: '56 футов (17м)' },
-    { label: 'Ширина', value: '9 м' },
-    { label: 'Пассажиры', value: 'До 20 человек' },
-    { label: 'Каюты', value: '4 каюты, в каждой свой туалет с душем' },
-    { label: 'Год', value: '2025' }
+    { label: 'Модель', value: 'Akula Catamaran 56' },
+    { label: 'Длина', value: '17 метров (56 футов)' },
+    { label: 'Год постройки', value: '2026' },
+    { label: 'Тип чартера', value: 'Со скипером и хостес' },
+    { label: 'Гости (дневной)', value: 'До 15 человек' },
+    { label: 'Гости (ночной)', value: 'До 8 человек' },
+    { label: 'Каюты', value: '4 каюты' },
+    { label: 'Экипаж', value: '2 человека' }
   ];
 
   const features = [
-    'Свежие фрукты', 'Безалкогольные напитки', 'Маски и ласты', 'Кондиционер',
-    'Снаряжение для снорклинга', 'Оборудование для рыбалки', 'Аудиосистема',
-    'Спасательные жилеты', 'Аптечка', 'Полотенца'
+    'Обед (до 6 человек включён)',
+    'Приветственные напитки',
+    'Безалкогольные напитки',
+    'Вода, чай/кофе, лёд',
+    'Свежие фрукты',
+    'Снаряжение для снорклинга',
+    'Оборудование для рыбалки',
+    'Динги с подвесным мотором',
+    'Сап-борд (paddle board)',
+    'Горячий/холодный душ на корме',
+    'BBQ-станция',
+    'Полотенца',
+    'Услуги капитана и стюардессы',
+    'Топливо'
   ];
 
   const handleFormSubmit = (e) => {
@@ -159,21 +173,21 @@ const Lamer56Page = () => {
           <div className="space-y-4 sm:space-y-6 lg:space-y-8">
             <div>
               <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs sm:text-sm font-medium mb-2">
-                Akula Catamarans
+                Akula Catamaran 56 • 2026
               </span>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-4">Lamer 56</h1>
               <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-4 sm:mb-6">
-                Роскошный катамаран премиум-класса 2025 года постройки для незабываемых путешествий по водам Пхукета.
+                Абсолютно новый катамаран 2026 года постройки. Просторный салон, 4 каюты и огромный флайбридж с зоной для загара.
               </p>
               <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
-                <span className="text-2xl sm:text-3xl font-bold text-blue-600">От <Price amount={50000} /></span>
-                <span className="text-sm sm:text-base text-gray-500">за день</span>
+                <span className="text-2xl sm:text-3xl font-bold text-blue-600"><Price amount={185000} /></span>
+                <span className="text-sm sm:text-base text-gray-500">дневной чартер</span>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-2 sm:gap-4">
               {specifications.map((spec, index) => (
-                <div key={index} className={`bg-white p-3 sm:p-4 rounded-lg sm:rounded-xl border ${index === 3 ? 'col-span-2' : ''}`}>
+                <div key={index} className="bg-white p-3 sm:p-4 rounded-lg sm:rounded-xl border">
                   <div className="text-xs sm:text-sm text-gray-500">{spec.label}</div>
                   <div className="text-sm sm:text-base font-semibold text-gray-900">{spec.value}</div>
                 </div>
@@ -224,35 +238,57 @@ const Lamer56Page = () => {
         {/* Additional info */}
         <div className="mt-8 sm:mt-12 lg:mt-16 max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+            {/* Destinations */}
             <div className="bg-white p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-lg">
-              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">Пакеты аренды</h3>
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">Направления дневного чартера</h3>
               <div className="space-y-3 sm:space-y-4">
                 {[
-                  { time: 'С 9:00 до 17:00', price: 50000, color: 'blue' },
-                  { time: '2 дня / 1 ночь', price: 100000, color: 'orange' },
-                  { time: '3 дня / 2 ночи', price: 150000, color: 'purple' }
-                ].map((pkg, idx) => (
-                  <div key={idx} className={`border-l-4 border-${pkg.color}-500 pl-3 sm:pl-4`}>
-                    <div className="font-semibold text-sm sm:text-base">{pkg.time}</div>
-                    <div className="text-xs sm:text-sm text-gray-600">От <Price amount={pkg.price} /></div>
+                  { dest: 'Краби и/или залив Пханг-Нга', color: 'blue' },
+                  { dest: 'Ко Кай + Ранг Яй', color: 'cyan' },
+                  { dest: 'Ко Яо + Джеймс Бонд', color: 'teal' },
+                  { dest: 'Острова Пхи-Пхи (доп. сбор за топливо 10 000 бат)', color: 'orange' }
+                ].map((item, idx) => (
+                  <div key={idx} className={`border-l-4 border-${item.color}-500 pl-3 sm:pl-4`}>
+                    <div className="font-semibold text-sm sm:text-base">{item.dest}</div>
                   </div>
                 ))}
               </div>
             </div>
 
+            {/* Not included */}
             <div className="bg-white p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-lg">
-              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">Основные удобства</h3>
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">Не включено</h3>
               <div className="space-y-2 sm:space-y-3">
-                {['Просторный салон', 'Динги с подвесным мотором', 'Солнечная палуба', 'Кондиционер во всех каютах'].map((item, idx) => (
+                {[
+                  'Сборы за нац. парки',
+                  'Трансфер до марины',
+                  'Обед для групп от 7 человек: +2 000 бат/чел. с 7-го гостя'
+                ].map((item, idx) => (
                   <div key={idx} className="flex items-center gap-2 sm:gap-3">
-                    <div className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <svg className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <svg className="w-3 h-3 sm:w-4 sm:h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                       </svg>
                     </div>
                     <span className="text-xs sm:text-sm">{item}</span>
                   </div>
                 ))}
+              </div>
+
+              <div className="mt-4 sm:mt-6 border-t pt-4">
+                <h4 className="text-sm sm:text-base font-bold text-gray-900 mb-2">Особенности яхты</h4>
+                <div className="space-y-2">
+                  {['Просторный салон', 'Огромный флайбридж с зоной загара', 'Горячий/холодный душ на корме', 'BBQ-станция'].map((item, idx) => (
+                    <div key={idx} className="flex items-center gap-2 sm:gap-3">
+                      <div className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <svg className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <span className="text-xs sm:text-sm">{item}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -319,7 +355,7 @@ const Lamer56Page = () => {
 
                 <div className="bg-blue-50 p-3 sm:p-4 rounded-lg">
                   <h4 className="font-semibold text-blue-900 mb-1 sm:mb-2 text-sm sm:text-base">Lamer 56</h4>
-                  <p className="text-xs sm:text-sm text-blue-700">Премиум катамаран до 20 человек • От <Price amount={50000} />/день</p>
+                  <p className="text-xs sm:text-sm text-blue-700">Power Catamaran 56ft • До 15 человек днём • <Price amount={185000} /> дневной чартер</p>
                 </div>
 
                 <div className="flex gap-2 sm:gap-3 pt-2 sm:pt-4">
